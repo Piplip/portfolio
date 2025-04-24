@@ -1,0 +1,338 @@
+// Variables
+$primary-red: #e63946;
+$secondary-red: #d62828;
+$pure-white: #f8f9fa;
+$off-white: #f1faee;
+$light-gray: #e9ecef;
+$dark-gray: #343a40;
+$pure-black: #1a1a1a;
+$accent-gray: #212529;
+$footer-bg: #1f2937;
+$footer-text: #e2e8f0;
+
+$font-heading: 'Montserrat', sans-serif;
+$font-body: 'Open Sans', sans-serif;
+
+$shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+.footer {
+  position: relative;
+  background-color: $footer-bg;
+  padding: 10rem 0 4rem;
+  color: $footer-text;
+  overflow: visible;
+  width: 100%;
+  // Important: This ensures footer is displayed after horizontal scroll content
+  margin-top: 0;
+  clear: both;
+  z-index: 10;
+
+  // Back to top button
+  .back-to-top {
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+
+    button {
+      width: 5rem;
+      height: 5rem;
+      background: $primary-red;
+      border: none;
+      border-radius: 50%;
+      color: $pure-white;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba($primary-red, 0.3);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: darken($primary-red, 10%);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba($primary-red, 0.4);
+      }
+    }
+  }
+
+  // Container for all footer content
+  .footer-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  // Main content grid
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 4rem;
+    margin-bottom: 5rem;
+
+    // Footer columns
+    .footer-column {
+      h3 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        position: relative;
+        display: inline-block;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -0.8rem;
+          width: 4rem;
+          height: 0.3rem;
+          background: $primary-red;
+          border-radius: 3px;
+        }
+      }
+    }
+  }
+
+  // Logo styling
+  .footer-logo {
+    margin-bottom: 2rem;
+
+    a {
+      font-family: $font-heading;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: $pure-white;
+
+      span {
+        color: $primary-red;
+      }
+    }
+  }
+
+  // Description text
+  .footer-description {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+  }
+
+  // Social icons
+  .footer-social {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+
+    a {
+      width: 4rem;
+      height: 4rem;
+      background: rgba($pure-white, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $pure-white;
+      font-size: 1.6rem;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: $primary-red;
+        color: $pure-white;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba($primary-red, 0.3);
+      }
+    }
+  }
+
+  // Navigation links
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 1.2rem;
+
+      a {
+        color: $footer-text;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+        padding-left: 1.2rem;
+
+        &::before {
+          content: '›';
+          position: absolute;
+          left: 0;
+          top: 0;
+          color: $primary-red;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          color: $primary-red;
+          transform: translateX(5px);
+
+          &::before {
+            transform: translateX(3px);
+          }
+        }
+      }
+    }
+  }
+
+  // Services list
+  .footer-services {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+
+      svg {
+        color: $primary-red;
+        font-size: 1.6rem;
+        margin-right: 1.2rem;
+      }
+
+      span {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  // Contact info
+  .contact-info {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .contact-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: $primary-red;
+    color: $pure-white;
+    padding: 1.2rem 2rem;
+    border-radius: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+
+    svg {
+      font-size: 1.6rem;
+    }
+
+    &:hover {
+      background: darken($primary-red, 10%);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba($primary-red, 0.4);
+    }
+  }
+
+  .contact-email {
+    font-size: 1.5rem;
+
+    a {
+      color: $footer-text;
+      border-bottom: 1px dashed rgba($footer-text, 0.5);
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: $primary-red;
+        border-color: $primary-red;
+      }
+    }
+  }
+
+  // Footer bottom
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba($pure-white, 0.1);
+    padding-top: 3rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .copyright {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.4rem;
+      opacity: 0.8;
+
+      svg {
+        font-size: 1.2rem;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .footer-legal {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      a {
+        color: $footer-text;
+        font-size: 1.4rem;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: $primary-red;
+          opacity: 1;
+        }
+      }
+
+      .divider {
+        color: rgba($footer-text, 0.5);
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .footer {
+    padding-top: 8rem;
+
+    .footer-content {
+      gap: 3rem;
+    }
+
+    .footer-column h3 {
+      font-size: 1.8rem;
+    }
+
+    .footer-logo a {
+      font-size: 2.4rem;
+    }
+
+    .back-to-top button {
+      width: 4.5rem;
+      height: 4.5rem;
+      font-size: 1.8rem;
+    }
+  }
+}

@@ -1,0 +1,105 @@
+// src/styles/animated-background.scss
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  overflow: hidden;
+  background: linear-gradient(
+                  135deg,
+                  rgba(10, 10, 25, 0.8) 0%,
+                  rgba(30, 15, 40, 0.8) 25%,
+                  rgba(60, 20, 40, 0.8) 50%,
+                  rgba(40, 20, 60, 0.8) 75%,
+                  rgba(20, 10, 30, 0.8) 100%
+  );
+  background-size: 400% 400%;
+  background-position: 0% 0%;
+
+  .gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+                    circle at center,
+                    transparent 30%,
+                    rgba(0, 0, 0, 0.4) 100%
+    );
+    z-index: 0;
+  }
+
+  .floating-element {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+
+    // Shape variations
+    &.circle {
+      border-radius: 50%;
+    }
+
+    &.square {
+      border-radius: 4px;
+    }
+
+    &.triangle {
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    &.dot {
+      border-radius: 50%;
+      transform: scale(0.5);
+    }
+
+    &.ring {
+      border-radius: 50%;
+      border: 2px solid;
+      background-color: transparent !important;
+    }
+
+    // Color variations
+    &.primary {
+      background-color: rgba(230, 57, 70, 0.2);
+      border-color: rgba(230, 57, 70, 0.3);
+    }
+
+    &.secondary {
+      background-color: rgba(29, 53, 87, 0.2);
+      border-color: rgba(29, 53, 87, 0.3);
+    }
+
+    &.accent {
+      background-color: rgba(69, 123, 157, 0.2);
+      border-color: rgba(69, 123, 157, 0.3);
+    }
+
+    &.light {
+      background-color: rgba(241, 250, 238, 0.2);
+      border-color: rgba(241, 250, 238, 0.3);
+    }
+
+    &.dark {
+      background-color: rgba(35, 35, 50, 0.2);
+      border-color: rgba(35, 35, 50, 0.3);
+    }
+  }
+}
+
+// Add a subtle grid pattern overlay
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -5;
+  background-image:
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}

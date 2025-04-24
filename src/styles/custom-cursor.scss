@@ -1,0 +1,38 @@
+
+.custom-cursor {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e63946;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.2s ease;
+  transform: translate(-50%, -50%);
+
+  &.hovering {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: rgba(230, 57, 70, 0.2);
+  }
+}
+
+// Hide default cursor when custom cursor is active
+body {
+  cursor: none;
+
+  a, button, [role="button"], input, label, select, textarea {
+    cursor: none;
+  }
+}
+
+// For mobile devices, restore default cursor
+@media (max-width: 768px) {
+  .custom-cursor {
+    display: none;
+  }
+
+  body, a, button, [role="button"], input, label, select, textarea {
+    cursor: auto;
+  }
+}
