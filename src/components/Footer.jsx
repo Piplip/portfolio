@@ -7,7 +7,7 @@ import {
     faGithub,
     faTwitter,
     faDribbble,
-    faInstagram
+    faInstagram, faFacebook
 } from '@fortawesome/free-brands-svg-icons';
 import {
     faEnvelope,
@@ -22,7 +22,6 @@ const Footer = ({ scrollToSection, sectionIds = ['hero-section', 'projects-secti
     const currentYear = new Date().getFullYear();
     const footerRef = useRef(null);
 
-    // Handle navigation click with the scrollToSection function
     const handleNavClick = (e, sectionId) => {
         e.preventDefault();
         const index = sectionIds.indexOf(sectionId);
@@ -74,29 +73,26 @@ const Footer = ({ scrollToSection, sectionIds = ['hero-section', 'projects-secti
                                 href="#hero-section"
                                 onClick={(e) => handleNavClick(e, 'hero-section')}
                             >
-                                Port<span>folio</span>
+                                Du's <span>Portfolio</span>
                             </a>
                         </div>
                         <p className="footer-description">
-                            Creating innovative digital experiences with modern web technologies and creative design solutions.
+                            Building end-to-end solutions to complex digital challenges, employing a comprehensive understanding of front-end and back-end development.
                         </p>
 
                         {/* Social Media Icons */}
                         <div className="footer-social">
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                                <FontAwesomeIcon icon={faLinkedinIn} />
-                            </a>
-                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <a href="https://github.com/Piplip" className="social-icon" aria-label="GitHub" target={'_blank'}>
                                 <FontAwesomeIcon icon={faGithub} />
                             </a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                            <a href="https://www.linkedin.com/in/khanh-du-nguyen-1b1106282/" className="social-icon" aria-label="LinkedIn" target={'_blank'}>
+                                <FontAwesomeIcon icon={faLinkedinIn} />
+                            </a>
+                            <a href="https://x.com/NishaYua64898" className="social-icon" aria-label="Twitter" target={'_blank'}>
                                 <FontAwesomeIcon icon={faTwitter} />
                             </a>
-                            <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" aria-label="Dribbble">
-                                <FontAwesomeIcon icon={faDribbble} />
-                            </a>
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                                <FontAwesomeIcon icon={faInstagram} />
+                            <a href="https://www.facebook.com/thihongluyen.pham.1" className="social-icon" aria-label="Dribbble" target={'_blank'}>
+                                <FontAwesomeIcon icon={faFacebook} />
                             </a>
                         </div>
                     </div>
@@ -148,57 +144,31 @@ const Footer = ({ scrollToSection, sectionIds = ['hero-section', 'projects-secti
                         </ul>
                     </div>
 
-                    {/* Services Column */}
-                    <div className="footer-column">
-                        <h3>Services</h3>
-                        <ul className="footer-services">
-                            <li>
-                                <FontAwesomeIcon icon={faCode} />
-                                <span>Web Development</span>
-                            </li>
-                            <li>
-                                <FontAwesomeIcon icon={faLaptopCode} />
-                                <span>UI/UX Design</span>
-                            </li>
-                            <li>
-                                <FontAwesomeIcon icon={faDribbble} />
-                                <span>Branding</span>
-                            </li>
-                            <li>
-                                <FontAwesomeIcon icon={faGithub} />
-                                <span>Code Review</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Contact Column */}
                     <div className="footer-column">
                         <h3>Get In Touch</h3>
                         <p className="contact-info">Have a project in mind? Let's work together to create something amazing.</p>
-                        <a
-                            href="#contact-section"
-                            className="contact-button"
-                            onClick={(e) => handleNavClick(e, 'contact-section')}
-                        >
-                            <FontAwesomeIcon icon={faEnvelope} />
-                            <span>Contact Me</span>
-                        </a>
-                        <p className="contact-email">
-                            <a href="mailto:hello@yourportfolio.com">hello@yourportfolio.com</a>
-                        </p>
+                        <div className="contact-buttons">
+                            <button
+                                className="contact-button"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    if (scrollToSection) {
+                                        scrollToSection(sectionIds.indexOf('contact-section'));
+                                        window.location.hash = 'contact-section';
+                                    }
+                                }}
+                            >
+                                <FontAwesomeIcon icon={faEnvelope} />
+                                <span>Contact Me</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                <div className="footer-bottom">
-                    <div className="copyright">
-                        <FontAwesomeIcon icon={faCopyright} />
-                        <p>{currentYear} Your Name. All rights reserved.</p>
-                    </div>
-                    <div className="footer-legal">
-                        <a href="#">Privacy Policy</a>
-                        <span className="divider">|</span>
-                        <a href="#">Terms of Service</a>
-                    </div>
+            </div>
+            <div className="footer-bottom" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <div className="copyright">
+                    <FontAwesomeIcon icon={faCopyright} />
+                    <p>{currentYear} Nguyen Khanh Du. All rights reserved.</p>
                 </div>
             </div>
         </footer>

@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import {motion} from 'framer-motion';
-import Self from "../assets/self.jpg";
 import "../styles/about.scss";
 
 const AboutSection = () => {
@@ -70,7 +69,7 @@ const AboutSection = () => {
                     ref={imageRef}
                     variants={imageVariants}
                 >
-                    <img src={Self} alt="Your Name" />
+                    <img src={'https://res.cloudinary.com/dlajrlzzi/image/upload/v1746077647/9d77b4f8-7318-4e37-8069-b172bde6d8a0_pemxkf.png'} alt="Your Name" />
                 </motion.div>
 
                 <motion.div
@@ -79,18 +78,17 @@ const AboutSection = () => {
                     variants={textVariants}
                 >
                     <motion.p variants={paragraphVariants}>
-                        Hello! I'm a passionate frontend developer with a keen eye for design and a love for creating
-                        smooth, interactive user experiences. I specialize in React and modern JavaScript frameworks.
+                        A highly motivated full-stack developer dedicated to architecting and implementing scalable.
+                        Expertise in developing engaging front-end interfaces with <span className={'highlight-text'}>React</span>,
+                        seamlessly integrated with robust back-end systems powered by the Spring framework.
                     </motion.p>
 
                     <motion.p variants={paragraphVariants}>
-                        With 3+ years of experience in web development, I've worked on various projects
-                        ranging from small business websites to complex web applications.
+                        Over two years of experience in the complete web development lifecycle, contributing to a diverse portfolio of projects ranging from streamlined web presences to sophisticated applications.
                     </motion.p>
 
                     <motion.p variants={paragraphVariants}>
-                        When I'm not coding, you can find me hiking, reading, or experimenting with new
-                        recipes in the kitchen.
+                        Beyond development, I enjoy staying engaged with technology through gaming, expanding my knowledge through reading.
                     </motion.p>
                 </motion.div>
             </div>

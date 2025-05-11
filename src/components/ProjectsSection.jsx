@@ -1,11 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, {useState, useRef, useEffect} from 'react';
+import {motion} from 'framer-motion';
+import {gsap} from 'gsap';
 import '../styles/projects.scss';
-
-// Register ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faExternalLinkAlt, faCode} from '@fortawesome/free-solid-svg-icons';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const ProjectsSection = () => {
     const [activeFilter, setActiveFilter] = useState('all');
@@ -13,301 +16,146 @@ const ProjectsSection = () => {
     const projectsRef = useRef(null);
     const projectsGridRef = useRef(null);
 
-    // Sample project data - unchanged for brevity...
     const projects = [
         {
             id: 1,
-            title: 'E-Commerce Platform',
-            year: '2023',
-            category: 'web',
-            description: 'A modern e-commerce platform with advanced filtering, real-time inventory, and seamless checkout.',
-            image: 'https://images.unsplash.com/photo-1661956602868-6ae368943878?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-            techStack: ['React', 'Node.js', 'MongoDB', 'Express', 'Redux'],
+            title: 'Event Management System',
+            year: '2025',
+            description: 'A comprehensive event management platform with AI-powered features, real-time analytics, and secure payment processing.',
+            image: 'https://res-console.cloudinary.com/dlajrlzzi/thumbnails/v1/image/upload/v1746015711/UGljdHVyZTFfcnk1aHp3/drilldown',
+            techStack: ['React', 'Spring Boot', 'MySQL', 'PostgreSQL', 'Redis', 'Spring Cloud', 'Google Cloud', 'jOOQ', 'Spring Security', 'Prometheus', 'ELK-stack', 'Grafana', 'Stripe', 'Google Pay', 'Google Analytics', 'Firebase', 'JWT', 'Leaflet', 'Gemini', 'Stability AI', 'Python', 'Flask', 'Material UI'],
             features: [
-                'User authentication and authorization',
-                'Product search and filtering',
-                'Shopping cart functionality',
-                'Secure payment processing',
-                'Order tracking and history'
+                'User authentication and authorization (Oauth2)',
+                'Monitored and managed server infrastructure',
+                'AI integration in various features in the system',
+                'Microservices architecture with Spring Cloud for high scalability',
+                'AI-powered event recommendations using Neural Collaborative Filtering',
+                'Secure payment processing with Stripe and Google Pay integration',
+                'Multi-language support with i18n integration',
             ],
-            longDescription: 'This comprehensive e-commerce platform was designed to provide a seamless shopping experience for users while giving store owners powerful tools to manage their inventory and sales. The project includes a responsive front-end built with React and Redux, a robust Node.js/Express API, and MongoDB for data storage.',
+            longDescription: 'A sophisticated event management platform that revolutionizes how events are organized and attended. Built with a microservices architecture, it ensures high availability and scalability. The system incorporates AI for personalized recommendations, real-time analytics for event insights, and secure payment processing. Features include comprehensive event management tools, attendee tracking, and a robust notification system.',
             liveUrl: '#',
             codeUrl: '#'
         },
         {
             id: 2,
-            title: 'Task Management App',
-            year: '2023',
-            category: 'mobile',
-            description: 'A productivity tool for managing tasks, projects, and team collaboration with real-time updates.',
-            image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-            techStack: ['React Native', 'Firebase', 'TypeScript', 'Redux'],
+            title: 'Healthcare Appointment System',
+            year: '2024',
+            description: 'An intelligent healthcare management platform with AI integration, real-time scheduling, and secure patient data handling.',
+            image: 'https://res-console.cloudinary.com/dlajrlzzi/thumbnails/v1/image/upload/v1746018994/MjIyMl93Z3pkNTI=/drilldown',
+            techStack: ['React', 'Spring Boot', 'MySQL', 'Redis', 'jOOQ', 'Spring Security', 'Firebase', 'JWT', 'OCR', 'VNPay', 'OpenAI', 'Material UI'],
             features: [
-                'Task creation and management',
-                'Project organization',
-                'Team collaboration features',
-                'Due date tracking with reminders',
-                'Progress reporting and analytics'
+                'Smart appointment scheduling with conflict detection',
+                'AI-powered chatbot for patient queries using OpenAI',
+                'Secure appointment with OCR integration',
+                'Real-time payment processing with VNPay integration',
+                'Automated appointment reminders and follow-ups',
+                'Multi-language support with medical terminology',
             ],
-            longDescription: 'The Task Management App is designed to help individuals and teams stay organized and productive. With real-time updates and cross-platform compatibility, users can manage their tasks from anywhere. The app features a clean, intuitive interface that makes task management simple and effective.',
+            longDescription: 'A comprehensive healthcare management system designed to streamline medical appointments and patient care. The platform features an intelligent scheduling system, AI-powered patient support, and secure handling of medical records. It includes OCR technology for prescription management, real-time payment processing, and a robust notification system for appointment management.',
             liveUrl: '#',
             codeUrl: '#'
         },
         {
             id: 3,
-            title: 'AI Content Generator',
-            year: '2022',
-            category: 'ai',
-            description: 'An AI-powered tool that generates high-quality content for blogs, social media, and marketing materials.',
-            image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            techStack: ['Python', 'TensorFlow', 'Flask', 'React', 'AWS'],
+            title: 'Weather Intelligence Platform',
+            year: '2024',
+            description: 'A sophisticated weather forecasting system with AI-powered predictions and personalized activity recommendations.',
+            image: 'https://res-console.cloudinary.com/dlajrlzzi/thumbnails/v1/image/upload/v1746018805/UGljdHVyZTFfdWU3NHk4/drilldown',
+            techStack: ['Spring Boot', 'MySQL', 'React', 'React Bootstrap', 'OpenWeather API', 'Redis'],
             features: [
-                'Natural language generation',
-                'Topic-specific content creation',
-                'Tone and style customization',
-                'Content optimization for SEO',
-                'Multi-format output (blog, social, email)'
+                'Real-time weather forecasting',
+                'Personalized activity recommendations based on weather conditions',
+                'Severe weather alerts and notifications',
+                'Historical weather data analysis and trends',
+                'Interactive weather maps and visualizations',
+                'Multi-language support with weather terminology',
+                'API integration with major weather data providers'
             ],
-            longDescription: 'The AI Content Generator leverages advanced natural language processing to create human-like content for various marketing needs. Users can specify topics, tone, and length to get customized content in seconds. The solution includes a user-friendly web interface and robust API for integration with existing tools and platforms.',
-            liveUrl: '#',
-            codeUrl: '#'
-        },
-        {
-            id: 4,
-            title: 'Financial Dashboard',
-            year: '2022',
-            category: 'web',
-            description: 'A comprehensive financial dashboard providing real-time insights, analytics, and portfolio management.',
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            techStack: ['Vue.js', 'D3.js', 'Node.js', 'PostgreSQL', 'WebSockets'],
-            features: [
-                'Real-time market data visualization',
-                'Portfolio tracking and analysis',
-                'Investment performance metrics',
-                'Customizable dashboard widgets',
-                'Alert system for price changes'
-            ],
-            longDescription: 'The Financial Dashboard is a powerful tool for investors and financial analysts, providing comprehensive market data visualization and portfolio management capabilities. The application features real-time data updates via WebSockets, interactive charts built with D3.js, and a clean, intuitive interface designed with Vue.js.',
-            liveUrl: '#',
-            codeUrl: '#'
-        },
-        {
-            id: 5,
-            title: 'Health & Fitness Tracker',
-            year: '2021',
-            category: 'mobile',
-            description: 'A mobile app for tracking workouts, nutrition, and health metrics with personalized insights and recommendations.',
-            image: 'https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1774&q=80',
-            techStack: ['Flutter', 'Dart', 'Firebase', 'HealthKit', 'Google Fit API'],
-            features: [
-                'Workout tracking and planning',
-                'Nutrition and meal logging',
-                'Health metrics monitoring',
-                'Goal setting and progress tracking',
-                'Personalized recommendations'
-            ],
-            longDescription: 'The Health & Fitness Tracker is a comprehensive mobile application that helps users maintain healthy lifestyles by tracking various aspects of their fitness and nutrition. The app integrates with device health platforms like HealthKit and Google Fit to collect data seamlessly, while providing actionable insights and personalized recommendations.',
-            liveUrl: '#',
-            codeUrl: '#'
-        },
-        {
-            id: 6,
-            title: 'Smart Home Control System',
-            year: '2021',
-            category: 'iot',
-            description: 'An IoT solution for controlling and automating home devices with voice commands, scheduling, and energy monitoring.',
-            image: 'https://images.unsplash.com/photo-1558002038-bb0401b9e6b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
-            techStack: ['Raspberry Pi', 'Node.js', 'MQTT', 'React', 'TensorFlow Lite'],
-            features: [
-                'Voice-controlled device management',
-                'Automated routines and scheduling',
-                'Energy usage monitoring and optimization',
-                'Temperature and lighting control',
-                'Security camera integration'
-            ],
-            longDescription: 'The Smart Home Control System is a comprehensive IoT solution that transforms ordinary homes into intelligent living spaces. Using a Raspberry Pi as the central hub, the system connects various smart devices and sensors, enabling seamless control and automation. The project includes a user-friendly mobile and web interface, voice control capabilities, and energy optimization features.',
+            longDescription: 'An advanced weather intelligence platform that provides accurate forecasts and personalized recommendations. The system uses AI to analyze weather patterns and predict conditions, offering users tailored activity suggestions. It features real-time alerts, historical data analysis, and interactive visualizations, making it a comprehensive solution for weather information and planning.',
             liveUrl: '#',
             codeUrl: '#'
         }
     ];
 
-    // Filter projects based on active category
     const filteredProjects = activeFilter === 'all'
         ? projects
         : projects.filter(project => project.category === activeFilter);
 
-    // Handle filter change
-    const handleFilterChange = (filter) => {
-        setActiveFilter(filter);
-    };
-
-    // Handle project click to open modal
     const handleProjectClick = (project) => {
         setSelectedProject(project);
-        // Disable body scroll when modal is open
-        document.body.style.overflow = 'hidden';
     };
 
-    // Handle modal close
     const handleCloseModal = () => {
         setSelectedProject(null);
-        // Enable body scroll when modal is closed
-        document.body.style.overflow = 'auto';
     };
 
-    // Set up animations for horizontal scrolling
     useEffect(() => {
-        // Make sure cards are visible initially
-        if (projectsGridRef.current) {
-            const projectCards = projectsGridRef.current.querySelectorAll('.project-card');
-            gsap.set(projectCards, { opacity: 1, x: 0 });
-        }
-
-        // Find the main horizontalScroll instance
-        const horizontalScrollInstance = ScrollTrigger.getById("horizontalScroll");
-
-        if (projectsGridRef.current && projectsRef.current && horizontalScrollInstance) {
-            // Create a context for scoped animations
-            const ctx = gsap.context(() => {
-                // Configure animation for project cards during scroll
-                gsap.utils.toArray('.project-card').forEach((card, i) => {
-                    // Create animation for card reveal when scrolling into view
-                    gsap.fromTo(card,
-                        {
-                            opacity: 0,
-                            x: 80,
-                            scale: 0.95
-                        },
-                        {
-                            opacity: 1,
-                            x: 0,
-                            scale: 1,
-                            duration: 0.8,
-                            ease: "power2.out",
-                            scrollTrigger: {
-                                trigger: card,
-                                start: "left 85%",
-                                end: "left 15%",
-                                containerAnimation: horizontalScrollInstance,
-                                toggleActions: "play none none none",
-                                id: `project-card-${i}`,
-                                once: true
-                            }
-                        }
-                    );
-                });
-
-                // Animation for section header
-                gsap.from('.projects-header', {
-                    y: 30,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: '.projects-header',
-                        start: "left 80%",
-                        containerAnimation: horizontalScrollInstance,
-                        once: true
+        const ctx = gsap.context(() => {
+            if (projectsGridRef.current) {
+                const projectCards = projectsGridRef.current.querySelectorAll('.project-card');
+                gsap.fromTo(
+                    projectCards,
+                    {opacity: 0, y: 30},
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.6,
+                        stagger: 0.1,
+                        ease: 'power2.out',
+                        delay: 0.3
                     }
-                });
+                );
+            }
+        }, projectsRef);
 
-                // Animation for filter buttons
-                gsap.from('.project-filters .filter-btn', {
-                    y: 20,
-                    opacity: 0,
-                    duration: 0.5,
-                    stagger: 0.1,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: '.project-filters',
-                        start: "left 80%",
-                        containerAnimation: horizontalScrollInstance,
-                        once: true
-                    }
-                });
-            }, projectsRef);
-
-            // Return cleanup function to kill animations
-            return () => {
-                ctx.revert();
-            };
-        }
-    }, [filteredProjects, activeFilter]);
-
-    // Add initial animation for first render
-    useEffect(() => {
-        // This will run once on component mount to show the initial projects
-        const initialAnimation = gsap.context(() => {
-            gsap.fromTo(
-                '.project-card',
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    stagger: 0.1,
-                    ease: 'power2.out',
-                    delay: 0.3
-                }
-            );
-        }, projectsGridRef);
-
-        return () => initialAnimation.revert();
+        return () => ctx.revert();
     }, []);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            document.body.style.overflow = 'auto';
+            const horizontalContainer = document.querySelector('.horizontal-scroll-container');
+            if (horizontalContainer) {
+                horizontalContainer.style.pointerEvents = 'auto';
+            }
+        };
+    }, []);
+
+    const titleVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut" }
+        }
+    };
 
     return (
         <div className="projects-container horizontal-projects" ref={projectsRef}>
             <div className="projects-header">
-                <h2>My Projects</h2>
+                <motion.h2 variants={titleVariants}>My Projects</motion.h2>
                 <p className="section-description">
-                    Browse through my recent work. Projects automatically reveal as you scroll horizontally through the portfolio.
+                    Browse through my recent work. Projects automatically reveal as you scroll horizontally through the
+                    portfolio.
                 </p>
             </div>
 
-            <div className="project-filters">
-                <button
-                    className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-                    onClick={() => handleFilterChange('all')}
-                >
-                    All Projects
-                </button>
-                <button
-                    className={`filter-btn ${activeFilter === 'web' ? 'active' : ''}`}
-                    onClick={() => handleFilterChange('web')}
-                >
-                    Web
-                </button>
-                <button
-                    className={`filter-btn ${activeFilter === 'mobile' ? 'active' : ''}`}
-                    onClick={() => handleFilterChange('mobile')}
-                >
-                    Mobile
-                </button>
-                <button
-                    className={`filter-btn ${activeFilter === 'ai' ? 'active' : ''}`}
-                    onClick={() => handleFilterChange('ai')}
-                >
-                    AI/ML
-                </button>
-                <button
-                    className={`filter-btn ${activeFilter === 'iot' ? 'active' : ''}`}
-                    onClick={() => handleFilterChange('iot')}
-                >
-                    IoT
-                </button>
-            </div>
-
-            <div className="projects-grid" ref={projectsGridRef}>
+            <div className="projects-carousel" ref={projectsGridRef}>
                 {filteredProjects.map((project) => (
                     <motion.div
                         key={project.id}
                         className="project-card"
-                        layout
-                        initial={{ opacity: 1 }}  // Start visible
                         onClick={() => handleProjectClick(project)}
+                        initial={{opacity: 0}}
+                        animate={{opacity: 1}}
+                        exit={{opacity: 0}}
+                        transition={{duration: 0.3}}
+                        layout
                     >
                         <div className="project-image">
-                            <img src={project.image} alt={project.title} />
+                            <img src={project.image} alt={project.title}/>
                             <div className="project-overlay">
                                 <span>View Details</span>
                             </div>
@@ -331,68 +179,226 @@ const ProjectsSection = () => {
                 ))}
             </div>
 
-            {/* Project Modal */}
-            <AnimatePresence>
+            <Dialog
+                open={selectedProject !== null}
+                onClose={handleCloseModal}
+                maxWidth="lg"
+                fullWidth
+                PaperProps={{
+                    style: {
+                        borderRadius: '10px',
+                        maxHeight: '90vh',
+                        overflowY: 'auto',
+                    }
+                }}
+            >
                 {selectedProject && (
-                    <motion.div
-                        className="modal-backdrop"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={handleCloseModal}
-                    >
-                        <motion.div
-                            className="project-modal"
-                            initial={{ y: 50, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: 50, opacity: 0 }}
-                            transition={{ type: "spring", damping: 25 }}
-                            onClick={e => e.stopPropagation()}
-                        >
-                            <button className="modal-close" onClick={handleCloseModal}>&times;</button>
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h3>{selectedProject.title}</h3>
-                                    <span className="project-year">{selectedProject.year}</span>
+                    <>
+                        <DialogTitle sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            borderBottom: '1px solid #eee',
+                            pb: 2,
+                            mb: 2,
+                            '& h3': {
+                                fontSize: '2.2rem',
+                                fontWeight: 700,
+                                margin: 0
+                            }
+                        }}>
+                            <h3>{selectedProject.title}</h3>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '1rem'
+                            }}>
+                                <span style={{
+                                    fontSize: '1.4rem',
+                                    color: '#777',
+                                    background: '#f5f5f5',
+                                    padding: '0.4rem 1rem',
+                                    borderRadius: '30px',
+                                    whiteSpace: 'nowrap'
+                                }}>
+                                    {selectedProject.year}
+                                </span>
+                                <IconButton
+                                    aria-label="close"
+                                    onClick={handleCloseModal}
+                                    edge="end"
+                                    sx={{
+                                        color: '#555',
+                                        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                                        width: '40px',
+                                        height: '40px',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                                            transform: 'rotate(90deg)',
+                                            transition: 'all 0.2s'
+                                        }
+                                    }}
+                                >
+                                    <CloseIcon/>
+                                </IconButton>
+                            </div>
+                        </DialogTitle>
+                        <DialogContent sx={{padding: '2rem 3rem 3rem'}}>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                                gap: '3.5rem',
+                                marginBottom: '3rem',
+                            }}>
+                                <div style={{
+                                    borderRadius: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
+                                    overflow: 'hidden',
+                                    boxShadow: '0 5px 15px rgba(0, 0, 0, 0.1)',
+                                }}>
+                                    <img
+                                        src={selectedProject.image}
+                                        alt={selectedProject.title}
+                                        style={{
+                                            width: '100%',
+                                            height: 'auto',
+                                            maxHeight: '350px',
+                                            objectFit: 'cover',
+                                            display: 'block'
+                                        }}
+                                    />
                                 </div>
-                                <div className="modal-body">
-                                    <div className="modal-image">
-                                        <img src={selectedProject.image} alt={selectedProject.title} />
-                                    </div>
-                                    <div className="modal-description">
-                                        <h4>Project Overview</h4>
-                                        <p>{selectedProject.longDescription}</p>
 
-                                        <h4>Key Features</h4>
-                                        <ul className="feature-list">
-                                            {selectedProject.features.map((feature, index) => (
-                                                <li key={index}>
-                                                    <span className="feature-icon">✓</span> {feature}
-                                                </li>
-                                            ))}
-                                        </ul>
+                                <div>
+                                    <h4 style={{
+                                        fontSize: '1.8rem',
+                                        marginTop: 0,
+                                        marginBottom: '1.5rem', // Increased margin
+                                        color: '#444'
+                                    }}>Overview</h4>
+                                    <p style={{
+                                        fontSize: '1.5rem',
+                                        lineHeight: 1.6,
+                                        color: '#666',
+                                        marginBottom: '2.5rem' // Increased margin
+                                    }}>{selectedProject.longDescription}</p>
 
-                                        <h4>Technologies Used</h4>
-                                        <div className="tech-stack-full">
-                                            {selectedProject.techStack.map((tech, index) => (
-                                                <span key={index} className="tech-tag">{tech}</span>
-                                            ))}
-                                        </div>
+                                    <h4 style={{
+                                        fontSize: '1.8rem',
+                                        marginBottom: '1.5rem', // Increased margin
+                                        color: '#444'
+                                    }}>Key Features</h4>
+                                    <ul style={{
+                                        listStyle: 'none',
+                                        padding: 0,
+                                        margin: '0 0 2.5rem 0' // Increased margin
+                                    }}>
+                                        {selectedProject.features.map((feature, index) => (
+                                            <li key={index} style={{
+                                                display: 'flex',
+                                                alignItems: 'flex-start',
+                                                marginBottom: '1rem', // Increased margin
+                                                fontSize: '1.4rem',
+                                                color: '#555'
+                                            }}>
+                                                <span style={{
+                                                    display: 'inline-block',
+                                                    marginRight: '1rem',
+                                                    color: '#e63946',
+                                                    fontWeight: 'bold'
+                                                }}>→</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <h4 style={{
+                                        fontSize: '1.8rem',
+                                        marginBottom: '1.5rem', // Increased margin
+                                        color: '#444'
+                                    }}>Technology Stack</h4>
+                                    <div style={{
+                                        display: 'flex',
+                                        flexWrap: 'wrap',
+                                        gap: '1rem' // Increased gap
+                                    }}>
+                                        {selectedProject.techStack.map((tech, index) => (
+                                            <span key={index} style={{
+                                                fontSize: '1.2rem',
+                                                padding: '0.4rem 1.2rem',
+                                                backgroundColor: '#f5f5f5',
+                                                color: '#555',
+                                                borderRadius: '30px',
+                                                fontWeight: 500,
+                                                display: 'inline-block',
+                                                margin: '0.3rem' // Increased margin
+                                            }}>{tech}</span>
+                                        ))}
                                     </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <a href={selectedProject.liveUrl} className="btn primary" target="_blank" rel="noopener noreferrer">
-                                        View Live
-                                    </a>
-                                    <a href={selectedProject.codeUrl} className="btn secondary" target="_blank" rel="noopener noreferrer">
-                                        View Code
-                                    </a>
                                 </div>
                             </div>
-                        </motion.div>
-                    </motion.div>
+
+                            <div style={{
+                                display: 'flex',
+                                gap: '2rem', // Increased gap
+                                marginTop: '2rem', // Added top margin
+                                paddingTop: '2rem', // Increased padding
+                                borderTop: '1px solid #eee'
+                            }}>
+                                <a
+                                    href={selectedProject.liveUrl}
+                                    style={{
+                                        backgroundColor: '#e63946',
+                                        color: 'white',
+                                        padding: '1.2rem 1.8rem', // Increased padding
+                                        borderRadius: '8px',
+                                        fontSize: '1.5rem',
+                                        fontWeight: 600,
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s',
+                                        textDecoration: 'none',
+                                        border: 'none',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '1rem', // Increased gap
+                                        lineHeight: 1.2,
+                                        flex: 1
+                                    }}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <FontAwesomeIcon icon={faCode}/> View Front-end Code
+                                </a>
+                                <a
+                                    href={selectedProject.codeUrl}
+                                    style={{
+                                        backgroundColor: '#f8f9fa',
+                                        color: '#333',
+                                        padding: '1.2rem 1.8rem', // Increased padding
+                                        borderRadius: '8px',
+                                        fontSize: '1.5rem',
+                                        fontWeight: 600,
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s',
+                                        textDecoration: 'none',
+                                        border: '1px solid #ddd',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '1rem', // Increased gap
+                                        lineHeight: 1.2,
+                                        flex: 1
+                                    }}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <FontAwesomeIcon icon={faCode}/> View Back-end Code
+                                </a>
+                            </div>
+                        </DialogContent>
+                    </>
                 )}
-            </AnimatePresence>
+            </Dialog>
         </div>
     );
 };

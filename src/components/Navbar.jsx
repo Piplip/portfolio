@@ -12,7 +12,6 @@ import {
 const Navbar = ({ scrollToSection, sectionIds = ['hero-section', 'projects-section', 'about-section', 'skills-section', 'contact-section'] }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     
-    // Listen for hash changes (both from scrolling and direct navigation)
     useEffect(() => {
         // Handle hash change from URL
         const handleHashChange = () => {
@@ -50,9 +49,6 @@ const Navbar = ({ scrollToSection, sectionIds = ['hero-section', 'projects-secti
         // Update active state
         setActiveIndex(index);
         document.documentElement.style.setProperty('--active-index', index);
-        
-        // Update URL hash
-        window.location.hash = sectionId;
         
         // Scroll to section using the provided function
         if (scrollToSection) {

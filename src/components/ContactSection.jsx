@@ -1,10 +1,10 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import '../styles/contact.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import emailjs from '@emailjs/browser';
 import {
     faEnvelope,
     faPhone,
@@ -18,11 +18,10 @@ import {
     faGithub,
     faLinkedinIn,
     faTwitter,
-    faDribbble
+    faFacebook
 } from '@fortawesome/free-brands-svg-icons';
 
 const ContactSection = () => {
-    // Form state
     const [formState, setFormState] = useState({
         name: '',
         email: '',
@@ -30,17 +29,18 @@ const ContactSection = () => {
         message: ''
     });
 
-    // Form submission state
     const [submitting, setSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
+    const [submitStatus, setSubmitStatus] = useState(null);
     const [errors, setErrors] = useState({});
 
-    // Refs for animations
     const formRef = useRef(null);
     const infoRef = useRef(null);
     const sectionRef = useRef(null);
 
-    // Handle input changes
+    useEffect(() => {
+        emailjs.init("2Gqr5J7TlBwYh7c12");
+    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormState({
@@ -48,7 +48,6 @@ const ContactSection = () => {
             [name]: value
         });
 
-        // Clear error when user types
         if (errors[name]) {
             setErrors({
                 ...errors,
@@ -57,7 +56,6 @@ const ContactSection = () => {
         }
     };
 
-    // Validate form fields
     const validateForm = () => {
         const newErrors = {};
 
@@ -81,13 +79,10 @@ const ContactSection = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate form
         if (!validateForm()) {
-            // Shake form on error
             gsap.to(formRef.current, {
                 x: [-10, 10, -10, 10, 0],
                 duration: 0.4,
@@ -99,37 +94,27 @@ const ContactSection = () => {
         setSubmitting(true);
 
         try {
-            // Simulate form submission with a delay
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            const subject = formState.subject || 'New Contact Form Submission';
+            const body = `Name: ${formState.name}%0D%0AEmail: ${formState.email}%0D%0A%0D%0AMessage:%0D%0A${formState.message}`;
+            const mailtoLink = `mailto:dnguyenkhan457@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-            // Successful submission
-            setSubmitStatus('success');
+            window.open(mailtoLink, '_blank');
 
-            // Reset form after success
-            setTimeout(() => {
-                setFormState({
-                    name: '',
-                    email: '',
-                    subject: '',
-                    message: ''
-                });
-                setSubmitStatus(null);
-            }, 3000);
+            setFormState({
+                name: '',
+                email: '',
+                subject: '',
+                message: ''
+            });
 
         } catch (error) {
-            console.error('Form submission error:', error);
+            console.error('Error:', error);
             setSubmitStatus('error');
-
-            // Clear error state after a delay
-            setTimeout(() => {
-                setSubmitStatus(null);
-            }, 3000);
         } finally {
             setSubmitting(false);
         }
     };
 
-    // Animation settings
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -149,13 +134,10 @@ const ContactSection = () => {
         }
     };
 
-    // Set up animations
     useEffect(() => {
-        // Initialize animations only if the section is in viewport
         if (infoRef.current && sectionRef.current) {
             gsap.set(".contact-info-item", { y: 20, opacity: 0 });
 
-            // Creating a context for scoping animations
             const ctx = gsap.context(() => {
                 gsap.to(".contact-info-item", {
                     y: 0,
@@ -165,13 +147,12 @@ const ContactSection = () => {
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: infoRef.current,
-                        start: "left 80%", // Changed from "top 80%" to work with horizontal scrolling
+                        start: "left 80%",
                         containerAnimation: ScrollTrigger.getById("horizontalScroll"),
                         toggleActions: "play none none none"
                     }
                 });
 
-                // Animate social icons
                 gsap.to(".social-icon", {
                     scale: 1,
                     opacity: 1,
@@ -180,14 +161,13 @@ const ContactSection = () => {
                     ease: "back.out(1.7)",
                     scrollTrigger: {
                         trigger: ".contact-social",
-                        start: "left 85%", // Changed for horizontal scroll
+                        start: "left 85%",
                         containerAnimation: ScrollTrigger.getById("horizontalScroll"),
                         toggleActions: "play none none none"
                     }
                 });
             });
 
-            // Cleanup animation context
             return () => ctx.revert();
         }
     }, []);
@@ -214,7 +194,6 @@ const ContactSection = () => {
             </div>
 
             <div className="contact-content horizontal">
-                {/* Contact Info Section */}
                 <motion.div
                     className="contact-info"
                     ref={infoRef}
@@ -228,7 +207,7 @@ const ContactSection = () => {
                         </div>
                         <div className="info-content">
                             <h3>Email</h3>
-                            <p><a href="mailto:hello@yourportfolio.com">hello@yourportfolio.com</a></p>
+                            <p><a href="mailto:hello@yourportfolio.com">dnguyenkhanh457@gmail.com</a></p>
                         </div>
                     </motion.div>
 
@@ -238,7 +217,7 @@ const ContactSection = () => {
                         </div>
                         <div className="info-content">
                             <h3>Phone</h3>
-                            <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                            <p><a href="tel:+84852560070">+84 85 256 0070</a></p>
                         </div>
                     </motion.div>
 
@@ -248,30 +227,29 @@ const ContactSection = () => {
                         </div>
                         <div className="info-content">
                             <h3>Location</h3>
-                            <p>San Francisco, CA</p>
+                            <p>Vinh Loi, Bac Lieu</p>
                         </div>
                     </motion.div>
 
                     <motion.div className="contact-social" variants={itemVariants}>
                         <h3>Connect</h3>
                         <div className="social-icons">
-                            <a href="#" className="social-icon" aria-label="GitHub">
+                            <a href="https://github.com/Piplip" className="social-icon" aria-label="GitHub" target={'_blank'}>
                                 <FontAwesomeIcon icon={faGithub} />
                             </a>
-                            <a href="#" className="social-icon" aria-label="LinkedIn">
+                            <a href="https://www.linkedin.com/in/khanh-du-nguyen-1b1106282/" className="social-icon" aria-label="LinkedIn" target={'_blank'}>
                                 <FontAwesomeIcon icon={faLinkedinIn} />
                             </a>
-                            <a href="#" className="social-icon" aria-label="Twitter">
+                            <a href="https://x.com/NishaYua64898" className="social-icon" aria-label="Twitter" target={'_blank'}>
                                 <FontAwesomeIcon icon={faTwitter} />
                             </a>
-                            <a href="#" className="social-icon" aria-label="Dribbble">
-                                <FontAwesomeIcon icon={faDribbble} />
+                            <a href="https://www.facebook.com/thihongluyen.pham.1" className="social-icon" aria-label="Dribbble" target={'_blank'}>
+                                <FontAwesomeIcon icon={faFacebook} />
                             </a>
                         </div>
                     </motion.div>
                 </motion.div>
 
-                {/* Contact Form Section */}
                 <motion.div
                     className="contact-form-container"
                     variants={containerVariants}
@@ -380,7 +358,6 @@ const ContactSection = () => {
                             )}
                         </button>
 
-                        {/* Success/Error Message */}
                         {submitStatus && (
                             <motion.div
                                 className={`form-status ${submitStatus}`}

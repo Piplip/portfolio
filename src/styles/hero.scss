@@ -1,4 +1,3 @@
-// Colors
 $primary-red: #e63946;
 $pure-white: #f8f9fa;
 $pure-black: #1a1a1a;
@@ -15,7 +14,6 @@ $accent-gray: #6c757d;
   padding: 0 8%;
   overflow: hidden;
 
-  // Background elements
   &::before {
     content: "";
     position: absolute;
@@ -40,7 +38,6 @@ $accent-gray: #6c757d;
     z-index: -1;
   }
 
-  // Typography
   h1 {
     font-size: clamp(3.5rem, 6vw, 7rem);
     line-height: 1.1;
@@ -53,7 +50,6 @@ $accent-gray: #6c757d;
       color: $primary-red;
       display: inline-block;
 
-      // Underline animation
       &::after {
         content: '';
         position: absolute;
@@ -67,7 +63,6 @@ $accent-gray: #6c757d;
         transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
       }
 
-      // Animated underline on page load
       &.animated::after {
         transform: scaleX(1);
         transform-origin: left;
@@ -92,10 +87,10 @@ $accent-gray: #6c757d;
     font-weight: 400;
   }
 
-  // CTA Buttons
   .hero-cta {
     display: flex;
     gap: 2rem;
+    margin-bottom: 3rem;
 
     @media (max-width: 768px) {
       flex-direction: column;

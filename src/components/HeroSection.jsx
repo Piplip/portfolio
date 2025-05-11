@@ -3,15 +3,12 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import '../styles/hero.scss';
 
-const HeroSection = () => {
+const HeroSection = ({ scrollToSection }) => {
     const highlightRef = useRef(null);
     const container = useRef(null);
 
     const scrollToNextSection = () => {
-        const nextSection = document.getElementById('projects-section');
-        if (nextSection) {
-            nextSection.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToSection(1);
     };
 
     useEffect(() => {
@@ -37,7 +34,6 @@ const HeroSection = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    // Text animations with Framer Motion - fixed easing curves
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -80,22 +76,21 @@ const HeroSection = () => {
             initial="hidden"
             animate="visible"
         >
-            {/* Decorative code elements */}
             <div className="code-element">{"<h1>Hello World</h1>"}</div>
-            <div className="code-element">{"const dev = { passion: true };"}</div>
-            <div className="code-element">{"function createAwesome() {...}"}</div>
+            <div className="code-element">{"const fullStack = { frontend: 'React', backend: 'Spring Boot' };"}</div>
+            <div className="code-element">{"async function buildSolutions() {...}"}</div>
 
             <motion.h1 variants={itemVariants}>
-                Hi, I'm <span className="highlight" ref={highlightRef}>Your Name</span>
+                Hi, I'm <span className="highlight" ref={highlightRef}>Nguyen Khanh Du</span>
             </motion.h1>
 
             <motion.h2 variants={itemVariants}>
-                Frontend Developer
+                Full-stack Developer
             </motion.h2>
 
             <motion.p variants={itemVariants}>
-                Building beautiful and interactive web experiences with modern technologies and
-                a focus on performance and user experience.
+                Crafting scalable web applications with expertise in both frontend and backend development.
+                Specializing in modern JavaScript frameworks, RESTful APIs, and cloud solutions.
             </motion.p>
 
             <motion.div className="hero-cta" variants={itemVariants}>
@@ -104,7 +99,7 @@ const HeroSection = () => {
                     variants={buttonVariants}
                     whileHover="hover"
                     whileTap="tap"
-                    onClick={() => document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' })}
+                    onClick={() => scrollToSection(1)}
                 >
                     View My Work
                 </motion.button>
@@ -114,13 +109,12 @@ const HeroSection = () => {
                     variants={buttonVariants}
                     whileHover="hover"
                     whileTap="tap"
-                    onClick={() => document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' })}
+                    onClick={() => scrollToSection(4)}
                 >
                     Contact Me
                 </motion.button>
             </motion.div>
 
-            {/* Scroll down indicator */}
             <motion.div
                 className="scroll-down"
                 onClick={scrollToNextSection}

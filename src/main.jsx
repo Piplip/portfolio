@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom/client';
 import './style.scss';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 import { motion } from 'framer-motion';
 
-// Import components
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import ProjectsSection from './components/ProjectsSection';
@@ -13,29 +13,65 @@ import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
-import AnimatedBackground from "./components/AnimatedBackground.jsx";
-import ParticlesBackground from "./components/ParticlesBackground.jsx";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-// Main App component
 function App() {
-    // Add a ref for the scroll indicator
-    const scrollIndicatorRef = React.useRef(null);
+    const scrollIndicatorRef = useRef(null);
+    const sectionIds = ['hero-section', 'projects-section', 'about-section', 'skills-section', 'contact-section'];
 
-    // Set up GSAP horizontal scrolling after component mount
+    const scrollToSection = (index) => {
+        const sections = document.querySelectorAll('.section');
+        const sectionId = sectionIds[index];
+
+        if (sections[index]) {
+            const st = ScrollTrigger.getById('horizontalScroll');
+            if (st) {
+                const totalWidth = Array.from(sections)
+                    .reduce((width, section) => width + section.offsetWidth, 0);
+
+                let targetPosition = 0;
+                for (let i = 0; i < index; i++) {
+                    targetPosition += sections[i].offsetWidth;
+                }
+
+                const viewportWidth = window.innerWidth;
+                const sectionWidth = sections[index].offsetWidth;
+                const offset = (viewportWidth - sectionWidth - 500) / 3;
+
+                const targetProgress = (targetPosition + offset) / (totalWidth - viewportWidth);
+
+                const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPosition = targetProgress * scrollMax;
+
+                const originalOnUpdate = st.onUpdate;
+                st.onUpdate = null;
+
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: {
+                        y: scrollPosition,
+                        autoKill: false
+                    },
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        st.onUpdate = originalOnUpdate;
+                        history.replaceState(null, null, `#${sectionId}`);
+                    }
+                });
+            }
+        }
+    };
+
     useEffect(() => {
         const sections = document.querySelector('.horizontal-sections');
         const sectionElements = document.querySelectorAll('.section');
 
-        // Calculate the total width of all sections
         const totalWidth = Array.from(sectionElements)
             .reduce((width, section) => width + section.offsetWidth, 0);
 
-        // Set the width of the container
         sections.style.width = `${totalWidth}px`;
 
-        // Create the horizontal scrolling animation
         gsap.to('.horizontal-sections', {
             x: () => -(totalWidth - window.innerWidth),
             ease: 'none',
@@ -45,11 +81,35 @@ function App() {
                 scrub: 1,
                 end: () => `+=${totalWidth}`,
                 invalidateOnRefresh: true,
-                id: 'horizontalScroll'
+                id: 'horizontalScroll',
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    const totalSections = sectionElements.length;
+
+                    let activeIndex = 0;
+                    let accumulatedWidth = 0;
+                    const sectionWidth = window.innerWidth;
+
+                    for (let i = 0; i < totalSections; i++) {
+                        accumulatedWidth += sectionWidth;
+                        if (progress * totalWidth <= accumulatedWidth) {
+                            activeIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (window.location.hash !== `#${sectionIds[activeIndex]}` && self.onUpdate !== null) {
+                        history.replaceState(null, null, `#${sectionIds[activeIndex]}`);
+
+                        const hashChangeEvent = new CustomEvent('hashchange:manual', {
+                            detail: { sectionIndex: activeIndex }
+                        });
+                        window.dispatchEvent(hashChangeEvent);
+                    }
+                }
             }
         });
 
-        // Create scroll indicator functionality
         if (scrollIndicatorRef.current) {
             const updateScrollIndicator = () => {
                 const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
@@ -60,23 +120,19 @@ function App() {
 
             window.addEventListener('scroll', updateScrollIndicator);
 
-            // Initial update
             updateScrollIndicator();
 
-            // Cleanup scroll indicator event listener
             return () => {
                 window.removeEventListener('scroll', updateScrollIndicator);
                 ScrollTrigger.getAll().forEach(t => t.kill());
             };
         } else {
-            // Original cleanup function if no scroll indicator
             return () => {
                 ScrollTrigger.getAll().forEach(t => t.kill());
             };
         }
     }, []);
 
-    // Add animations to headings when they come into view
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.utils.toArray('h1, h2').forEach(heading => {
@@ -97,10 +153,7 @@ function App() {
         return () => ctx.revert();
     }, []);
 
-    // Add animations to project cards when they come into view
     useEffect(() => {
-        // This effect now just targets project cards without using the horizontalScroll instance
-        // which might be causing issues
         const ctx = gsap.context(() => {
             gsap.utils.toArray('.project-card').forEach((card, i) => {
                 gsap.from(card, {
@@ -117,18 +170,15 @@ function App() {
                 });
             });
         });
-        
+
         return () => ctx.revert();
     }, []);
 
     return (
         <div className="portfolio-container">
-            <ParticlesBackground />
-            <AnimatedBackground />
-
             <div ref={scrollIndicatorRef} className="scroll-indicator"></div>
 
-            <Navbar/>
+            <Navbar scrollToSection={scrollToSection} sectionIds={sectionIds}/>
             <div className="horizontal-scroll-container">
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -138,7 +188,7 @@ function App() {
                 >
                     <div className="horizontal-sections">
                         <section id="hero-section" className="section">
-                            <HeroSection/>
+                            <HeroSection scrollToSection={scrollToSection}/>
                         </section>
                         <section id="projects-section" className="section">
                             <ProjectsSection/>
@@ -155,12 +205,11 @@ function App() {
                     </div>
                 </motion.div>
             </div>
-            <Footer/>
+            <Footer scrollToSection={scrollToSection} sectionIds={sectionIds}/>
         </div>
     );
 }
 
-// Render the App
 ReactDOM.createRoot(document.getElementById('app')).render(
     <React.StrictMode>
         <App/>
