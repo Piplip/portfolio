@@ -24,12 +24,10 @@ $shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 
   color: $footer-text;
   overflow: visible;
   width: 100%;
-  // Important: This ensures footer is displayed after horizontal scroll content
   margin-top: 0;
   clear: both;
   z-index: 10;
 
-  // Back to top button
   .back-to-top {
     position: absolute;
     top: -2.5rem;
@@ -60,7 +58,6 @@ $shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 
     }
   }
 
-  // Container for all footer content
   .footer-container {
     width: 100%;
     max-width: 1200px;
@@ -75,201 +72,105 @@ $shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 
     grid-template-columns: repeat(3, 1fr);
     gap: 4rem;
     margin-bottom: 5rem;
-
-    // Footer columns
-    .footer-column {
-      h3 {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 2rem;
-        position: relative;
-        display: inline-block;
-
-        &::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          bottom: -0.8rem;
-          width: 4rem;
-          height: 0.3rem;
-          background: $primary-red;
-          border-radius: 3px;
-        }
-      }
-    }
+    align-items: center;
   }
 
-  // Logo styling
-  .footer-logo {
-    margin-bottom: 2rem;
+  .footer-quote {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
 
-    a {
-      font-family: $font-heading;
-      font-size: 2.8rem;
-      font-weight: 700;
+    .quote-icon {
+      color: $primary-red;
+      font-size: 2rem;
+      opacity: 0.5;
+      margin: 0 1rem;
+
+      &.fa-quote-left {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      &.fa-quote-right {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+    }
+
+    p {
+      font-size: 1.8rem;
+      line-height: 1.6;
+      margin: 2rem 0;
+      font-style: italic;
       color: $pure-white;
+    }
 
-      span {
-        color: $primary-red;
-      }
+    .quote-author {
+      display: block;
+      font-size: 1.4rem;
+      color: $primary-red;
+      margin-top: 1rem;
     }
   }
 
-  // Description text
-  .footer-description {
-    font-size: 1.5rem;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-    opacity: 0.9;
-  }
-
-  // Social icons
   .footer-social {
     display: flex;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
 
     a {
-      width: 4rem;
-      height: 4rem;
+      width: 4.5rem;
+      height: 4.5rem;
       background: rgba($pure-white, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: $pure-white;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       transition: all 0.3s ease;
 
       &:hover {
         background: $primary-red;
         color: $pure-white;
-        transform: translateY(-5px);
+        transform: translateY(-5px) rotate(360deg);
         box-shadow: 0 5px 15px rgba($primary-red, 0.3);
       }
     }
   }
 
-  // Navigation links
-  .footer-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      margin-bottom: 1.2rem;
-
-      a {
-        color: $footer-text;
-        font-size: 1.5rem;
-        transition: all 0.3s ease;
-        position: relative;
-        display: inline-block;
-        padding-left: 1.2rem;
-
-        &::before {
-          content: '›';
-          position: absolute;
-          left: 0;
-          top: 0;
-          color: $primary-red;
-          transition: transform 0.3s ease;
-        }
-
-        &:hover {
-          color: $primary-red;
-          transform: translateX(5px);
-
-          &::before {
-            transform: translateX(3px);
-          }
-        }
-      }
-    }
-  }
-
-  // Services list
-  .footer-services {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.5rem;
-
-      svg {
-        color: $primary-red;
-        font-size: 1.6rem;
-        margin-right: 1.2rem;
-      }
-
-      span {
-        font-size: 1.5rem;
-      }
-    }
-  }
-
-  // Contact info
-  .contact-info {
-    font-size: 1.5rem;
-    line-height: 1.7;
-    margin-bottom: 2rem;
-  }
-
-  .contact-button {
-    display: inline-flex;
+  .made-with-love {
+    text-align: center;
+    display: flex;
     align-items: center;
-    gap: 1rem;
-    background: $primary-red;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+    font-size: 1.6rem;
     color: $pure-white;
-    padding: 1.2rem 2rem;
-    border-radius: 5rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    transition: all 0.3s ease;
 
-    svg {
-      font-size: 1.6rem;
+    p {
+        margin: 0;
+        line-height: 1;
     }
 
-    &:hover {
-      background: darken($primary-red, 10%);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba($primary-red, 0.4);
-    }
-  }
-
-  .contact-email {
-    font-size: 1.5rem;
-
-    a {
-      color: $footer-text;
-      border-bottom: 1px dashed rgba($footer-text, 0.5);
-      transition: all 0.3s ease;
-
-      &:hover {
+    .heart-icon {
         color: $primary-red;
-        border-color: $primary-red;
-      }
+        font-size: 2.25rem;
+        animation: heartbeat 1.5s ease-in-out infinite;
+        display: inline-flex;
+        align-items: center;
     }
   }
 
-  // Footer bottom
   .footer-bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border-top: 1px solid rgba($pure-white, 0.1);
     padding-top: 3rem;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 2rem;
-      text-align: center;
-    }
 
     .copyright {
       display: flex;
@@ -286,46 +187,58 @@ $shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 
         margin: 0;
       }
     }
+  }
+}
 
-    .footer-legal {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-
-      a {
-        color: $footer-text;
-        font-size: 1.4rem;
-        opacity: 0.8;
-        transition: all 0.3s ease;
-
-        &:hover {
-          color: $primary-red;
-          opacity: 1;
-        }
-      }
-
-      .divider {
-        color: rgba($footer-text, 0.5);
-      }
-    }
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.3);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.3);
+  }
+  70% {
+    transform: scale(1);
   }
 }
 
 // Responsive adjustments
+@media (max-width: 992px) {
+  .footer {
+    .footer-content {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+    }
+
+    .made-with-love {
+      grid-column: span 2;
+    }
+  }
+}
+
 @media (max-width: 576px) {
   .footer {
     padding-top: 8rem;
 
     .footer-content {
+      grid-template-columns: 1fr;
       gap: 3rem;
     }
 
-    .footer-column h3 {
-      font-size: 1.8rem;
+    .made-with-love {
+      grid-column: span 1;
     }
 
-    .footer-logo a {
-      font-size: 2.4rem;
+    .footer-quote {
+      p {
+        font-size: 1.6rem;
+      }
     }
 
     .back-to-top button {

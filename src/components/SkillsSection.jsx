@@ -1,15 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-    Box, 
-    Typography, 
-    Paper, 
-    LinearProgress, 
+import {
+    Box,
+    Typography,
     Chip,
-    Grid,
-    Card,
-    CardContent,
-    Divider,
     useTheme
 } from '@mui/material';
 import '../styles/skills.scss';
@@ -20,47 +14,41 @@ const SkillsSection = () => {
         {
             category: 'Frontend',
             items: [
-                { name: 'HTML', level: 95 },
-                { name: 'CSS/SASS', level: 90 },
-                { name: 'JavaScript', level: 80 },
-                { name: 'React', level: 85 },
-                { name: 'Material UI', level: 90 }
+                { name: 'HTML' },
+                { name: 'CSS/SASS' },
+                { name: 'JavaScript' },
+                { name: 'React' },
+                { name: 'Material UI' }
             ]
         },
         {
             category: 'Backend',
             items: [
-                { name: 'Spring Boot', level: 85 },
-                { name: 'Java', level: 85 },
-                { name: 'MySQL', level: 75 },
-                { name: 'PostgreSQL', level: 75 },
-                { name: 'Firebase', level: 75 },
+                { name: 'Spring Boot' },
+                { name: 'Java' },
+                { name: 'MySQL' },
+                { name: 'PostgreSQL' },
+                { name: 'Firebase' }
             ]
         },
         {
             category: 'Tools',
             items: [
-                { name: 'Git', level: 80 },
-                { name: 'Vite', level: 80 },
-                { name: 'Docker', level: 70 },
-                { name: 'Figma', level: 85 },
+                { name: 'Git' },
+                { name: 'Vite' },
+                { name: 'Docker' },
+                { name: 'Figma' }
             ]
         },
         {
             category: 'Other',
             items: [
-                { name: 'Responsive Design', level: 90 },
-                { name: 'Progressive Web Apps', level: 80 },
-                { name: 'Web Performance', level: 80 }
+                { name: 'Responsive Design' },
+                { name: 'Progressive Web Apps' },
+                { name: 'Web Performance' }
             ]
         }
     ];
-
-    // Calculate average for each category
-    const categoryAverages = skills.map(category => ({
-        name: category.category,
-        average: Math.round(category.items.reduce((acc, item) => acc + item.level, 0) / category.items.length)
-    }));
 
     // Framer Motion variants
     const containerVariants = {
@@ -92,83 +80,54 @@ const SkillsSection = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
         >
-            <Box
-                component={motion.div}
-                variants={itemVariants}
-                className="chart-container"
-            >
-                <Paper
-                    elevation={0}
-                    sx={{
-                        p: 4,
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        backdropFilter: 'blur(10px)',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        '&::before': {
-                            content: '""',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            background: 'linear-gradient(135deg, rgba(230, 57, 70, 0.1), transparent)',
-                            zIndex: -1
-                        }
-                    }}
-                >
-                    {categoryAverages.map((category, index) => (
-                        <Box key={index} className="category-average">
-                            <Typography className="category-name">
-                                {category.name}
-                            </Typography>
-                            <Box className="average-progress">
-                                <Box 
-                                    className="progress-fill"
-                                    sx={{ width: `${category.average}%` }}
-                                />
-                            </Box>
-                            <Typography className="average-value">
-                                {category.average}%
-                            </Typography>
-                        </Box>
-                    ))}
-                </Paper>
-            </Box>
+            <h2 className="section-title">
+                Skills & Technologies
+            </h2>
 
-            <Grid container spacing={4} className="skills-grid">
+            <Box className="skills-content">
                 {skills.map((skillGroup, index) => (
-                    <Grid item xs={12} sm={6} md={3} key={index}>
-                        <Paper 
-                            component={motion.div}
-                            variants={itemVariants}
-                            className="skill-card"
+                    <Box
+                        key={index}
+                        component={motion.div}
+                        variants={itemVariants}
+                        className="skill-group"
+                    >
+                        <Typography
+                            className="skill-category"
+                            sx={{
+                                fontSize: '2rem',
+                                fontWeight: 600,
+                                color: '#333',
+                                mb: 2
+                            }}
                         >
-                            <Typography className="skill-category">
-                                {skillGroup.category}
-                            </Typography>
+                            {skillGroup.category}
+                        </Typography>
+                        <Box className="skill-chips">
                             {skillGroup.items.map((skill, i) => (
-                                <Box key={i} className="skill-item">
-                                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                                        <Typography className="skill-name">
-                                            {skill.name}
-                                        </Typography>
-                                        <Typography className="skill-level">
-                                            {skill.level}%
-                                        </Typography>
-                                    </Box>
-                                    <Box className="progress-bar">
-                                        <Box 
-                                            className="progress-fill"
-                                            sx={{ width: `${skill.level}%` }}
-                                        />
-                                    </Box>
-                                </Box>
+                                <Chip
+                                    key={i}
+                                    label={skill.name}
+                                    sx={{
+                                        backgroundColor: 'rgba(230, 57, 70, 0.1)',
+                                        color: '#333',
+                                        border: '1px solid rgba(230, 57, 70, 0.2)',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(230, 57, 70, 0.2)'
+                                        },
+                                        height: '32px',
+                                        '& .MuiChip-label': {
+                                            px: 2,
+                                            fontSize: '1.25rem',
+                                            fontWeight: 500
+                                        }
+                                    }}
+                                />
                             ))}
-                        </Paper>
-                    </Grid>
+                        </Box>
+                    </Box>
                 ))}
-            </Grid>
+            </Box>
         </Box>
     );
 };

@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 function App() {
     const scrollIndicatorRef = useRef(null);
-    const sectionIds = ['hero-section', 'projects-section', 'about-section', 'skills-section', 'contact-section'];
+    const sectionIds = ['hero-section', 'about-section', 'skills-section', 'projects-section', 'contact-section'];
 
     const scrollToSection = (index) => {
         const sections = document.querySelectorAll('.section');
@@ -37,7 +37,7 @@ function App() {
 
                 const viewportWidth = window.innerWidth;
                 const sectionWidth = sections[index].offsetWidth;
-                const offset = (viewportWidth - sectionWidth - 500) / 3;
+                const offset = (viewportWidth - sectionWidth - (27.5 * Math.pow(2, index + 1))) / 2;
 
                 const targetProgress = (targetPosition + offset) / (totalWidth - viewportWidth);
 
@@ -57,6 +57,12 @@ function App() {
                     onComplete: () => {
                         st.onUpdate = originalOnUpdate;
                         history.replaceState(null, null, `#${sectionId}`);
+
+                        // Dispatch custom event to update navbar state
+                        const hashChangeEvent = new CustomEvent('hashchange:manual', {
+                            detail: { sectionIndex: index }
+                        });
+                        window.dispatchEvent(hashChangeEvent);
                     }
                 });
             }
@@ -190,14 +196,14 @@ function App() {
                         <section id="hero-section" className="section">
                             <HeroSection scrollToSection={scrollToSection}/>
                         </section>
-                        <section id="projects-section" className="section">
-                            <ProjectsSection/>
-                        </section>
                         <section id="about-section" className="section">
                             <AboutSection/>
                         </section>
                         <section id="skills-section" className="section">
                             <SkillsSection/>
+                        </section>
+                        <section id="projects-section" className="section">
+                            <ProjectsSection/>
                         </section>
                         <section id="contact-section" className="section">
                             <ContactSection/>

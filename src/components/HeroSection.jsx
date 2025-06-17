@@ -99,7 +99,7 @@ const HeroSection = ({ scrollToSection }) => {
                     variants={buttonVariants}
                     whileHover="hover"
                     whileTap="tap"
-                    onClick={() => scrollToSection(1)}
+                    onClick={() => scrollToSection(3)}
                 >
                     View My Work
                 </motion.button>

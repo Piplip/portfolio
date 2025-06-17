@@ -10,197 +10,77 @@ $accent-gray: #212529;
 $font-heading: 'Montserrat', sans-serif;
 $font-body: 'Open Sans', sans-serif;
 
-/* For animations */
-@keyframes slideRight {
-  from {
-    transform: translateX(-50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes growWidth {
-  from {
-    width: 0;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 .skills-container {
-    height: 100vh;
-    width: 80vw;
-    min-width: 80vw;
-    padding: 3rem;
+    width: 100%;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 4rem;
-    overflow-x: auto;
-    overflow-y: auto;
-    background: $pure-black;
     position: relative;
-
-    &::-webkit-scrollbar {
-        height: 6px;
-        width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: rgba(230, 57, 70, 0.3);
-    }
+    background-color: $pure-white;
 
     .section-title {
-        text-align: center;
-        margin-bottom: 3rem;
-        font-size: 4rem;
-        color: $pure-white;
-        font-weight: 700;
+        font-size: 4.2rem;
+        margin-bottom: 4rem;
         position: relative;
-        width: 100vw;
+        color: $dark-gray;
         font-family: $font-heading;
-        letter-spacing: 1px;
+        font-weight: 700;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        padding-left: 2rem;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 2rem;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, $primary-red, transparent);
+            border-radius: 2px;
+        }
     }
 
-    .chart-container {
-        width: 75vw;
-        height: auto;
-        padding: 0 4rem;
+    .skills-content {
         display: flex;
         flex-direction: column;
-        gap: 2.5rem;
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
 
-    .skills-grid {
-        width: 75vw;
-        height: auto;
-        padding: 0 4rem;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 3rem;
-    }
-
-    .skill-card {
-        background: rgba(255, 255, 255, 0.02);
-        backdrop-filter: blur(10px);
-        border-radius: 1.2rem;
-        padding: 3rem;
-        height: 100%;
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.03);
+    .skill-group {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+        background: $pure-white;
+        border-radius: 0.8rem;
+        border: 1px solid rgba(230, 57, 70, 0.2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        min-width: 50vw;
 
         &:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.1);
         }
 
         .skill-category {
-            color: $pure-white;
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 2.5rem;
             font-family: $font-heading;
             letter-spacing: 0.5px;
-        }
-
-        .skill-item {
-            margin-bottom: 2rem;
-
-            .skill-name {
-                color: $light-gray;
-                font-size: 1.6rem;
-                font-weight: 500;
-                font-family: $font-body;
-                margin-bottom: 1rem;
-            }
-
-            .skill-level {
-                color: rgba(230, 57, 70, 0.7);
-                font-size: 1.6rem;
-                font-weight: 600;
-                font-family: $font-body;
-            }
-
-            .progress-bar {
-                height: 10px;
-                border-radius: 5px;
-                background: rgba(0, 0, 0, 0.2);
-                overflow: hidden;
-                margin-top: 1rem;
-
-                .progress-fill {
-                    height: 100%;
-                    background: linear-gradient(90deg, rgba(230, 57, 70, 0.5), rgba(214, 40, 40, 0.5));
-                    border-radius: 5px;
-                    transition: width 1s ease-in-out;
-                }
-            }
-        }
-    }
-
-    .category-average {
-        display: flex;
-        align-items: center;
-        gap: 3rem;
-        margin-bottom: 2.5rem;
-        padding: 2.5rem;
-        background: rgba(255, 255, 255, 0.02);
-        border-radius: 1.2rem;
-        border: 1px solid rgba(255, 255, 255, 0.03);
-        transition: transform 0.3s ease;
-
-        &:hover {
-            transform: translateX(5px);
-        }
-
-        .category-name {
-            color: $pure-white;
+            position: relative;
+            color: $primary-red;
             font-size: 2rem;
-            font-weight: 700;
-            min-width: 250px;
-            font-family: $font-heading;
-            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
-        .average-progress {
-            flex-grow: 1;
-            height: 28px;
-            border-radius: 14px;
-            background: rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-
-            .progress-fill {
-                height: 100%;
-                background: linear-gradient(90deg, rgba(230, 57, 70, 0.5), rgba(214, 40, 40, 0.5));
-                border-radius: 14px;
-                transition: width 1s ease-in-out;
-            }
-        }
-
-        .average-value {
-            color: rgba(230, 57, 70, 0.7);
-            font-size: 2rem;
-            font-weight: 700;
-            min-width: 100px;
-            font-family: $font-heading;
+        .skill-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding: 0.25rem;
         }
     }
 }
