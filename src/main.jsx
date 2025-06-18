@@ -23,6 +23,7 @@ function App() {
     const scrollToSection = (index) => {
         const sections = document.querySelectorAll('.section');
         const sectionId = sectionIds[index];
+        const container = document.querySelector('.horizontal-scroll-container');
 
         if (sections[index]) {
             const st = ScrollTrigger.getById('horizontalScroll');
@@ -30,18 +31,34 @@ function App() {
                 const totalWidth = Array.from(sections)
                     .reduce((width, section) => width + section.offsetWidth, 0);
 
+                // Get the target section's position and dimensions
+                const targetSection = sections[index];
+                const sectionRect = targetSection.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+
+                // Calculate the base position (left edge of the section)
                 let targetPosition = 0;
                 for (let i = 0; i < index; i++) {
                     targetPosition += sections[i].offsetWidth;
                 }
 
                 const viewportWidth = window.innerWidth;
-                const sectionWidth = sections[index].offsetWidth;
-                const offset = (viewportWidth - sectionWidth - (27.5 * Math.pow(2, index + 1))) / 2;
+                const sectionWidth = sectionRect.width;
 
-                const targetProgress = (targetPosition + offset) / (totalWidth - viewportWidth);
+                // Calculate the offset needed to center the section in the viewport
+                // First, calculate the base offset for section spacing
+                const baseOffset = index === 0 ? 0 : (viewportWidth * 0.1 * Math.pow(1.1, index));
 
-                const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+                // Calculate the exact position needed to center the section
+                const sectionCenter = targetPosition + (sectionWidth / 2);
+                const viewportCenter = viewportWidth / 2;
+                const centeringOffset = sectionCenter - viewportCenter;
+
+                // Combine the offsets, ensuring we don't overshoot
+                const offset = Math.max(0, baseOffset + (centeringOffset * 0.8));
+
+                const scrollMax = totalWidth - viewportWidth;
+                const targetProgress = (targetPosition + offset) / totalWidth;
                 const scrollPosition = targetProgress * scrollMax;
 
                 const originalOnUpdate = st.onUpdate;
@@ -72,6 +89,7 @@ function App() {
     useEffect(() => {
         const sections = document.querySelector('.horizontal-sections');
         const sectionElements = document.querySelectorAll('.section');
+        const container = document.querySelector('.horizontal-scroll-container');
 
         const totalWidth = Array.from(sectionElements)
             .reduce((width, section) => width + section.offsetWidth, 0);
@@ -91,13 +109,24 @@ function App() {
                 onUpdate: (self) => {
                     const progress = self.progress;
                     const totalSections = sectionElements.length;
+                    const viewportWidth = window.innerWidth;
 
                     let activeIndex = 0;
                     let accumulatedWidth = 0;
-                    const sectionWidth = window.innerWidth;
 
                     for (let i = 0; i < totalSections; i++) {
-                        accumulatedWidth += sectionWidth;
+                        const section = sectionElements[i];
+                        const sectionRect = section.getBoundingClientRect();
+                        const sectionWidth = sectionRect.width;
+
+                        // Use the same offset calculation as scrollToSection
+                        const baseOffset = i === 0 ? 0 : (viewportWidth * 0.1 * Math.pow(1.1, i));
+                        const sectionCenter = accumulatedWidth + (sectionWidth / 2);
+                        const viewportCenter = viewportWidth / 2;
+                        const centeringOffset = sectionCenter - viewportCenter;
+                        const offset = Math.max(0, baseOffset + (centeringOffset * 0.8));
+
+                        accumulatedWidth += sectionWidth + offset;
                         if (progress * totalWidth <= accumulatedWidth) {
                             activeIndex = i;
                             break;
@@ -118,14 +147,13 @@ function App() {
 
         if (scrollIndicatorRef.current) {
             const updateScrollIndicator = () => {
-                const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollTotal = totalWidth - window.innerWidth;
                 const scrolled = window.scrollY;
                 const scrollPercent = (scrolled / scrollTotal) * 100;
                 scrollIndicatorRef.current.style.height = `${scrollPercent}vh`;
             };
 
             window.addEventListener('scroll', updateScrollIndicator);
-
             updateScrollIndicator();
 
             return () => {
