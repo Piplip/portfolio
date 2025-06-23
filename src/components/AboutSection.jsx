@@ -1,11 +1,8 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {motion} from 'framer-motion';
 import "../styles/about.scss";
 
 const AboutSection = () => {
-    const textRef = useRef(null);
-    const imageRef = useRef(null);
-
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -61,34 +58,40 @@ const AboutSection = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
         >
-            <motion.h2 variants={titleVariants}>About Me</motion.h2>
-
             <div className="about-content">
                 <motion.div
                     className="about-image"
-                    ref={imageRef}
                     variants={imageVariants}
                 >
-                    <img src={'https://res.cloudinary.com/dlajrlzzi/image/upload/v1746077647/9d77b4f8-7318-4e37-8069-b172bde6d8a0_pemxkf.png'} alt="Your Name" />
+                    <div className="image-wrapper">
+                        <img
+                            src="https://res.cloudinary.com/dlajrlzzi/image/upload/v1746077647/9d77b4f8-7318-4e37-8069-b172bde6d8a0_pemxkf.png"
+                            alt="Developer portrait showing professional headshot"
+                            loading="lazy"
+                        />
+                    </div>
                 </motion.div>
 
                 <motion.div
                     className="about-text"
-                    ref={textRef}
                     variants={textVariants}
                 >
+                    <motion.h2 variants={titleVariants}>About Me</motion.h2>
+
                     <motion.p variants={paragraphVariants}>
-                        A highly motivated full-stack developer dedicated to architecting and implementing scalable.
-                        Expertise in developing engaging front-end interfaces with <span className={'highlight-text'}>React</span>,
-                        seamlessly integrated with robust back-end systems powered by the Spring framework.
+                        A highly motivated full-stack developer dedicated to architecting and implementing scalable solutions.
+                        Expertise in developing engaging front-end interfaces with <span className="highlight-text">React</span>,
+                        seamlessly integrated with robust back-end systems powered by the <span className="highlight-text">Spring</span> framework.
                     </motion.p>
 
                     <motion.p variants={paragraphVariants}>
-                        Over two years of experience in the complete web development lifecycle, contributing to a diverse portfolio of projects ranging from streamlined web presences to sophisticated applications.
+                        Over two years of experience in the complete web development lifecycle, contributing to a diverse portfolio
+                        of projects ranging from streamlined web presences to sophisticated enterprise applications.
                     </motion.p>
 
                     <motion.p variants={paragraphVariants}>
-                        Beyond development, I enjoy staying engaged with technology through gaming, expanding my knowledge through reading.
+                        Beyond development, I enjoy staying engaged with technology through gaming, expanding my knowledge through
+                        continuous learning, and contributing to open-source projects in the developer community.
                     </motion.p>
                 </motion.div>
             </div>

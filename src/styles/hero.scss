@@ -11,8 +11,14 @@ $accent-gray: #6c757d;
   flex-direction: column;
   justify-content: center;
   position: relative;
-  padding: 0 8%;
+  padding-left: clamp(10%, 15vw, 20%);
+  padding-right: clamp(10%, 15vw, 20%);
   overflow: hidden;
+
+  @media (max-width: 600px) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 
   &::before {
     content: "";
