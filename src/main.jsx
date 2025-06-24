@@ -14,12 +14,20 @@ import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 
+if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual';
+}
+
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 function App() {
     const scrollIndicatorRef = useRef(null);
     const sectionIds = ['hero-section', 'about-section', 'skills-section', 'projects-section', 'contact-section'];
     const lastActiveIndexRef = useRef(0);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const scrollToSection = (index) => {
         const sectionId = sectionIds[index];
@@ -72,10 +80,8 @@ function App() {
                 // Re-enable ScrollTrigger updates
                 st.onUpdate = originalOnUpdate;
 
-                // Force ScrollTrigger to update its position
                 st.refresh();
 
-                // Update browser history and dispatch custom event
                 history.replaceState(null, null, `#${sectionId}`);
                 const hashChangeEvent = new CustomEvent('hashchange:manual', {
                     detail: { sectionIndex: index }
