@@ -85,12 +85,11 @@ const HeroSection = ({ scrollToSection }) => {
             </motion.h1>
 
             <motion.h2 variants={itemVariants}>
-                Full-stack Developer
+                Software Developer
             </motion.h2>
 
             <motion.p variants={itemVariants}>
-                Crafting scalable web applications with expertise in both frontend and backend development.
-                Specializing in modern JavaScript frameworks, RESTful APIs, and cloud solutions.
+                Crafting innovative solutions with a passion for technology and a commitment to excellence.
             </motion.p>
 
             <motion.div className="hero-cta" variants={itemVariants}>

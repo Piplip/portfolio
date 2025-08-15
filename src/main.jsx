@@ -40,17 +40,14 @@ function App() {
             return;
         }
 
-        // Get the ScrollTrigger instance
         const st = ScrollTrigger.getById('horizontalScroll');
         if (!st) {
             console.warn('ScrollTrigger with id "horizontalScroll" not found');
             return;
         }
 
-        // Calculate the target horizontal offset for this section
         const targetHorizontalOffset = index * viewportWidth;
 
-        // Calculate total scrollable horizontal distance
         const totalHorizontalWidth = sectionElements.length * viewportWidth;
         const maxHorizontalOffset = totalHorizontalWidth - viewportWidth;
 
@@ -64,11 +61,9 @@ function App() {
         const scrollTriggerRange = st.end - st.start;
         const targetVerticalScrollPosition = st.start + (horizontalProgress * scrollTriggerRange);
 
-        // Temporarily disable ScrollTrigger updates to prevent conflicts during animation
         const originalOnUpdate = st.onUpdate;
         st.onUpdate = null;
 
-        // Animate the vertical scroll position
         gsap.to(window, {
             duration: 1,
             scrollTo: {
@@ -77,7 +72,6 @@ function App() {
             },
             ease: "power2.out",
             onComplete: () => {
-                // Re-enable ScrollTrigger updates
                 st.onUpdate = originalOnUpdate;
 
                 st.refresh();
@@ -123,7 +117,6 @@ function App() {
                     const activateThreshold = 0.85;
                     const keepThreshold = 0.5;
 
-                    // Use getBoundingClientRect for robust detection
                     const visibleSections = Array.from(sectionElements).map((section, i) => {
                         const rect = section.getBoundingClientRect();
                         const visibleStart = Math.max(rect.left, 0);
@@ -133,19 +126,16 @@ function App() {
                         return { i, visibleWidth, visibleRatio };
                     });
 
-                    // 1. If any section (other than current) is >= 85% visible and actually visible, activate it
                     let activeIndex = lastActive;
                     visibleSections.forEach(({ i, visibleWidth, visibleRatio }) => {
                         if (visibleWidth > 0 && i !== lastActive && visibleRatio >= activateThreshold) {
                             activeIndex = i;
                         }
                     });
-                    // 2. Otherwise, if current section is still >= 50% visible and actually visible, keep it
                     const lastSection = visibleSections[lastActive];
                     if (lastSection && lastSection.visibleWidth > 0 && lastSection.visibleRatio >= keepThreshold) {
                         activeIndex = lastActive;
                     } else {
-                        // 3. If neither, fall back to the section with the largest visible area above 50% and actually visible
                         let fallbackIndex = lastActive;
                         let fallbackMax = 0;
                         visibleSections.forEach(({ i, visibleWidth, visibleRatio }) => {

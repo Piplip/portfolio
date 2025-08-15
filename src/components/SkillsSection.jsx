@@ -15,7 +15,7 @@ const SkillsSection = () => {
             category: 'Frontend',
             items: [
                 { name: 'HTML' },
-                { name: 'CSS/SASS' },
+                { name: 'CSS' },
                 { name: 'JavaScript' },
                 { name: 'React' },
                 { name: 'Material UI' }
@@ -27,7 +27,6 @@ const SkillsSection = () => {
                 { name: 'Spring Boot' },
                 { name: 'Java' },
                 { name: 'MySQL' },
-                { name: 'PostgreSQL' },
                 { name: 'Firebase' }
             ]
         },
@@ -36,7 +35,6 @@ const SkillsSection = () => {
             items: [
                 { name: 'Git' },
                 { name: 'Vite' },
-                { name: 'Docker' },
                 { name: 'Figma' }
             ]
         },
@@ -44,7 +42,8 @@ const SkillsSection = () => {
             category: 'Other',
             items: [
                 { name: 'Responsive Design' },
-                { name: 'Progressive Web Apps' },
+                { name: 'Microservices' },
+                { name: 'Web Security' },
                 { name: 'Web Performance' }
             ]
         }

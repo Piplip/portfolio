@@ -79,14 +79,15 @@ const AboutSection = () => {
                     <motion.h2 variants={titleVariants}>About Me</motion.h2>
 
                     <motion.p variants={paragraphVariants}>
-                        A highly motivated full-stack developer dedicated to architecting and implementing scalable solutions.
+                        A highly motivated software developer dedicated to architecting and implementing scalable solutions.
                         Expertise in developing engaging front-end interfaces with <span className="highlight-text">React</span>,
                         seamlessly integrated with robust back-end systems powered by the <span className="highlight-text">Spring</span> framework.
                     </motion.p>
 
                     <motion.p variants={paragraphVariants}>
-                        Over two years of experience in the complete web development lifecycle, contributing to a diverse portfolio
-                        of projects ranging from streamlined web presences to sophisticated enterprise applications.
+                        With a strong foundation in <span className="highlight-text">Java</span> and decent level of <span className="highlight-text">JavaScript</span>,
+                        I excel at creating efficient, maintainable code that meets the needs of both users and stakeholders.
+                        My passion for technology drives me to continuously learn and adapt to new challenges in the ever-evolving software landscape.
                     </motion.p>
 
                     <motion.p variants={paragraphVariants}>

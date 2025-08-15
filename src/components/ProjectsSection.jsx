@@ -1,18 +1,21 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {motion} from 'framer-motion';
-import {gsap} from 'gsap';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { gsap } from 'gsap';
 import '../styles/projects.scss';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faExternalLinkAlt, faCode} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt, faCode } from '@fortawesome/free-solid-svg-icons';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const ProjectsSection = () => {
     const [activeFilter, setActiveFilter] = useState('all');
     const [selectedProject, setSelectedProject] = useState(null);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const projectsRef = useRef(null);
     const projectsGridRef = useRef(null);
 
@@ -22,7 +25,40 @@ const ProjectsSection = () => {
             title: 'Event Management System',
             year: '2025',
             description: 'A comprehensive event management platform with AI-powered features, real-time analytics, and secure payment processing.',
-            image: 'https://res-console.cloudinary.com/dlajrlzzi/thumbnails/v1/image/upload/v1746015711/UGljdHVyZTFfcnk1aHp3/drilldown',
+            images: [
+                "https://i.ibb.co/k6rkcf4m/tixery-1.png",
+                "https://i.ibb.co/cKKvLM8y/tixery-2.png",
+                "https://i.ibb.co/pjPh8PK7/tixery-3.png",
+                "https://i.ibb.co/PGbYXhLz/tixery-4.png",
+                "https://i.ibb.co/YFQ5cPD4/tixery-5.png",
+                "https://i.ibb.co/5X6rhxH9/tixery-6.png",
+                "https://i.ibb.co/8g3Wytcd/tixery-7.png",
+                "https://i.ibb.co/xqtQ0Rzj/tixery-8.png",
+                "https://i.ibb.co/4nqtzstV/tixery-9.png",
+                "https://i.ibb.co/c98SPkz/tixery-10.png",
+                "https://i.ibb.co/84tfZr74/tixery-11.png",
+                "https://i.ibb.co/vChWKgKZ/tixery-12.png",
+                "https://i.ibb.co/PGvdNjbJ/tixery-13.png",
+                "https://i.ibb.co/JRSK9rwV/tixery-14.png",
+                "https://i.ibb.co/YFfdrf83/tixery-15.png",
+                "https://i.ibb.co/ksmMB1FK/tixery-16.png",
+                "https://i.ibb.co/pr3XGCWR/tixery-17.png",
+                "https://i.ibb.co/2JHSqVH/tixery-18.png",
+                "https://i.ibb.co/4Rhb4pF8/tixery-19.png",
+                "https://i.ibb.co/SD1gH268/tixery-20.png",
+                "https://i.ibb.co/bgv8QQtq/tixery-21.png",
+                "https://i.ibb.co/svShdR1s/tixery-22.png",
+                "https://i.ibb.co/Cpn8YG8q/tixery-23.png",
+                "https://i.ibb.co/YBxhZKjk/tixery-24.png",
+                "https://i.ibb.co/NnG4fF9L/tixery-25.png",
+                "https://i.ibb.co/fG4zG3N0/tixery-26.png",
+                "https://i.ibb.co/VpjK8pNK/tixery-27.png",
+                "https://i.ibb.co/RT3Zpr7c/tixery-28.png",
+                "https://i.ibb.co/Gf81n7Fw/tixery-29.png",
+                "https://i.ibb.co/Rkt3SZ47/tixery-30.png",
+                "https://i.ibb.co/v4xwPtBw/tixery-32.png",
+                "https://i.ibb.co/N6rQh5Ty/tixery-33.png"
+            ],
             techStack: ['React', 'Spring Boot', 'MySQL', 'PostgreSQL', 'Redis', 'Spring Cloud', 'Google Cloud', 'jOOQ', 'Spring Security', 'Prometheus', 'ELK-stack', 'Grafana', 'Stripe', 'Google Pay', 'Google Analytics', 'Firebase', 'JWT', 'Leaflet', 'Gemini', 'Stability AI', 'Python', 'Flask', 'Material UI'],
             features: [
                 'User authentication and authorization (Oauth2)',
@@ -42,7 +78,19 @@ const ProjectsSection = () => {
             title: 'Healthcare Appointment System',
             year: '2024',
             description: 'An intelligent healthcare management platform with AI integration, real-time scheduling, and secure patient data handling.',
-            image: 'https://res-console.cloudinary.com/dlajrlzzi/thumbnails/v1/image/upload/v1746018994/MjIyMl93Z3pkNTI=/drilldown',
+            images: [
+                "https://i.ibb.co/w327nLz/medicare-1.jpg",
+                "https://i.ibb.co/S4gnfHWB/medicare-2.jpg",
+                "https://i.ibb.co/LDbzGNZS/medicare-3.jpg",
+                "https://i.ibb.co/qLwf5gps/medicare-4.jpg",
+                "https://i.ibb.co/GQvhmpLL/medicare-5.jpg",
+                "https://i.ibb.co/zVYR5tWz/medicare-6.jpg",
+                "https://i.ibb.co/1YGn6MCf/medicare-7.jpg",
+                "https://i.ibb.co/1JGV4CJT/medicare-8.jpg",
+                "https://i.ibb.co/tpYPnFbV/medicare-9.jpg",
+                "https://i.ibb.co/yFJjsQDH/medicare-10.jpg",
+                "https://i.ibb.co/wrstry8f/medicare-11.jpg"
+            ],
             techStack: ['React', 'Spring Boot', 'MySQL', 'Redis', 'jOOQ', 'Spring Security', 'Firebase', 'JWT', 'OCR', 'VNPay', 'OpenAI', 'Material UI'],
             features: [
                 'Smart appointment scheduling with conflict detection',
@@ -61,7 +109,11 @@ const ProjectsSection = () => {
             title: 'Weather Intelligence Platform',
             year: '2024',
             description: 'A sophisticated weather forecasting system with AI-powered predictions and personalized activity recommendations.',
-            image: 'https://res-console.cloudinary.com/dlajrlzzi/thumbnails/v1/image/upload/v1746018805/UGljdHVyZTFfdWU3NHk4/drilldown',
+            images: [
+                "https://i.ibb.co/VcPH1cxw/yeon-1.jpg",
+                "https://i.ibb.co/G4cdsxDt/yeon-2.jpg",
+                "https://i.ibb.co/zVJRSkt5/yeon-3.jpg"
+            ],
             techStack: ['Spring Boot', 'MySQL', 'React', 'React Bootstrap', 'OpenWeather API', 'Redis'],
             features: [
                 'Real-time weather forecasting',
@@ -84,10 +136,33 @@ const ProjectsSection = () => {
 
     const handleProjectClick = (project) => {
         setSelectedProject(project);
+        setCurrentImageIndex(0); // Reset index when opening a new project
     };
 
     const handleCloseModal = () => {
         setSelectedProject(null);
+    };
+
+    const handleNextImage = () => {
+        if (selectedProject) {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedProject.images.length);
+        }
+    };
+
+    const handlePrevImage = () => {
+        if (selectedProject) {
+            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedProject.images.length) % selectedProject.images.length);
+        }
+    };
+
+    const handleThumbnailClick = (index) => {
+        setCurrentImageIndex(index);
+    };
+
+    const imageVariants = {
+        hidden: { opacity: 0, scale: 1.05 },
+        visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: 'easeIn' } },
+        exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2, ease: 'easeOut' } }
     };
 
     useEffect(() => {
@@ -155,7 +230,7 @@ const ProjectsSection = () => {
                         layout
                     >
                         <div className="project-image">
-                            <img src={project.image} alt={project.title}/>
+                            <img src={project.images[0]} alt={project.title}/>
                             <div className="project-overlay">
                                 <span>View Details</span>
                             </div>
@@ -183,89 +258,69 @@ const ProjectsSection = () => {
                 open={selectedProject !== null}
                 onClose={handleCloseModal}
                 maxWidth="lg"
-                fullWidth
                 PaperProps={{
-                    style: {
-                        borderRadius: '10px',
-                        maxHeight: '90vh',
-                        overflowY: 'auto',
-                    }
+                    className: 'project-modal-paper'
                 }}
             >
-                {selectedProject && (
-                    <>
-                        <DialogTitle sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            borderBottom: '1px solid #eee',
-                            pb: 2,
-                            mb: 2,
-                            '& h3': {
-                                fontSize: '2.2rem',
-                                fontWeight: 700,
-                                margin: 0
-                            }
-                        }}>
-                            <h3>{selectedProject.title}</h3>
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '1rem'
-                            }}>
-                                <span style={{
-                                    fontSize: '1.4rem',
-                                    color: '#777',
-                                    background: '#f5f5f5',
-                                    padding: '0.4rem 1rem',
-                                    borderRadius: '30px',
-                                    whiteSpace: 'nowrap'
-                                }}>
-                                    {selectedProject.year}
-                                </span>
-                                <IconButton
-                                    aria-label="close"
-                                    onClick={handleCloseModal}
-                                    edge="end"
-                                    sx={{
-                                        color: '#555',
-                                        backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                                        width: '40px',
-                                        height: '40px',
-                                        '&:hover': {
-                                            backgroundColor: 'rgba(0, 0, 0, 0.15)',
-                                            transform: 'rotate(90deg)',
-                                            transition: 'all 0.2s'
-                                        }
-                                    }}
-                                >
-                                    <CloseIcon/>
-                                </IconButton>
-                            </div>
+            {selectedProject && (
+                    <div className="modal-content-wrapper">
+                        <DialogTitle sx={{ m: 0, p: 2, pr: 8, fontSize: 18}}>
+                            {selectedProject.title}
+                            <IconButton
+                                aria-label="close"
+                                onClick={handleCloseModal}
+                                className="modal-close"
+                                sx={{
+                                    position: 'absolute',
+                                    right: 12,
+                                    top: 12,
+                                    color: (theme) => theme.palette.grey[600],
+                                }}
+                            >
+                                <CloseIcon />
+                            </IconButton>
                         </DialogTitle>
-                        <DialogContent sx={{padding: '2rem 3rem 3rem'}}>
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                                gap: '3.5rem',
-                                marginBottom: '3rem',
-                            }}>
-                                <div style={{
-                                    borderRadius: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
-                                    overflow: 'hidden',
-                                    boxShadow: '0 5px 15px rgba(0, 0, 0, 0.1)',
-                                }}>
-                                    <img
-                                        src={selectedProject.image}
-                                        alt={selectedProject.title}
-                                        style={{
-                                            width: '100%',
-                                            height: 'auto',
-                                            maxHeight: '350px',
-                                            objectFit: 'cover',
-                                            display: 'block'
-                                        }}
-                                    />
+                        <DialogContent dividers className="modal-scroll-container">
+                            <div className="modal-body">
+                                <div className="modal-image">
+                                    <div className="image-gallery">
+                                        <div className="gallery-main-image">
+                                            <AnimatePresence mode="wait">
+                                                <motion.img
+                                                    key={currentImageIndex}
+                                                    src={selectedProject.images[currentImageIndex]}
+                                                    alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
+                                                    variants={imageVariants}
+                                                    initial="hidden"
+                                                    animate="visible"
+                                                    exit="exit"
+                                                />
+                                            </AnimatePresence>
+                                            <div className="gallery-nav prev">
+                                                <IconButton onClick={handlePrevImage} size="small">
+                                                    <ChevronLeftIcon fontSize="large" />
+                                                </IconButton>
+                                            </div>
+                                            <div className="gallery-nav next">
+                                                <IconButton onClick={handleNextImage} size="small">
+                                                    <ChevronRightIcon fontSize="large" />
+                                                </IconButton>
+                                            </div>
+                                        </div>
+                                        {selectedProject.images.length > 1 && (
+                                            <div className="gallery-thumbnails">
+                                                {selectedProject.images.map((imgSrc, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className={`thumbnail-item ${index === currentImageIndex ? 'active' : ''}`}
+                                                        onClick={() => handleThumbnailClick(index)}
+                                                    >
+                                                        <img src={imgSrc} alt={`Thumbnail ${index + 1}`} />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div>
@@ -336,67 +391,8 @@ const ProjectsSection = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            <div style={{
-                                display: 'flex',
-                                gap: '2rem', // Increased gap
-                                marginTop: '2rem', // Added top margin
-                                paddingTop: '2rem', // Increased padding
-                                borderTop: '1px solid #eee'
-                            }}>
-                                <a
-                                    href={selectedProject.liveUrl}
-                                    style={{
-                                        backgroundColor: '#e63946',
-                                        color: 'white',
-                                        padding: '1.2rem 1.8rem', // Increased padding
-                                        borderRadius: '8px',
-                                        fontSize: '1.5rem',
-                                        fontWeight: 600,
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s',
-                                        textDecoration: 'none',
-                                        border: 'none',
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '1rem', // Increased gap
-                                        lineHeight: 1.2,
-                                        flex: 1
-                                    }}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <FontAwesomeIcon icon={faCode}/> View Front-end Code
-                                </a>
-                                <a
-                                    href={selectedProject.codeUrl}
-                                    style={{
-                                        backgroundColor: '#f8f9fa',
-                                        color: '#333',
-                                        padding: '1.2rem 1.8rem', // Increased padding
-                                        borderRadius: '8px',
-                                        fontSize: '1.5rem',
-                                        fontWeight: 600,
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s',
-                                        textDecoration: 'none',
-                                        border: '1px solid #ddd',
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '1rem', // Increased gap
-                                        lineHeight: 1.2,
-                                        flex: 1
-                                    }}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <FontAwesomeIcon icon={faCode}/> View Back-end Code
-                                </a>
-                            </div>
                         </DialogContent>
-                    </>
+                    </div>
                 )}
             </Dialog>
         </div>
