@@ -493,6 +493,10 @@ $button-hover-darken: 10%;
       height: 100%;
       object-fit: contain;
     }
+    &:hover .gallery-nav {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.1);
+    }
   }
 
   .gallery-nav {
@@ -512,11 +516,6 @@ $button-hover-darken: 10%;
     .MuiIconButton-root {
       color: #333;
     }
-  }
-
-  &:hover .gallery-nav {
-    opacity: 1;
-    transform: translateY(-50%) scale(1.1);
   }
 
   .gallery-thumbnails {

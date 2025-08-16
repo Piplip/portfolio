@@ -26,6 +26,7 @@ const ProjectsSection = () => {
             year: '2025',
             description: 'A comprehensive event management platform with AI-powered features, real-time analytics, and secure payment processing.',
             images: [
+                "https://i.ibb.co/4nqtzstV/tixery-9.png",
                 "https://i.ibb.co/k6rkcf4m/tixery-1.png",
                 "https://i.ibb.co/cKKvLM8y/tixery-2.png",
                 "https://i.ibb.co/pjPh8PK7/tixery-3.png",
@@ -34,7 +35,6 @@ const ProjectsSection = () => {
                 "https://i.ibb.co/5X6rhxH9/tixery-6.png",
                 "https://i.ibb.co/8g3Wytcd/tixery-7.png",
                 "https://i.ibb.co/xqtQ0Rzj/tixery-8.png",
-                "https://i.ibb.co/4nqtzstV/tixery-9.png",
                 "https://i.ibb.co/c98SPkz/tixery-10.png",
                 "https://i.ibb.co/84tfZr74/tixery-11.png",
                 "https://i.ibb.co/vChWKgKZ/tixery-12.png",
@@ -79,6 +79,7 @@ const ProjectsSection = () => {
             year: '2024',
             description: 'An intelligent healthcare management platform with AI integration, real-time scheduling, and secure patient data handling.',
             images: [
+                "https://i.ibb.co/1JGV4CJT/medicare-8.jpg",
                 "https://i.ibb.co/w327nLz/medicare-1.jpg",
                 "https://i.ibb.co/S4gnfHWB/medicare-2.jpg",
                 "https://i.ibb.co/LDbzGNZS/medicare-3.jpg",
@@ -86,7 +87,6 @@ const ProjectsSection = () => {
                 "https://i.ibb.co/GQvhmpLL/medicare-5.jpg",
                 "https://i.ibb.co/zVYR5tWz/medicare-6.jpg",
                 "https://i.ibb.co/1YGn6MCf/medicare-7.jpg",
-                "https://i.ibb.co/1JGV4CJT/medicare-8.jpg",
                 "https://i.ibb.co/tpYPnFbV/medicare-9.jpg",
                 "https://i.ibb.co/yFJjsQDH/medicare-10.jpg",
                 "https://i.ibb.co/wrstry8f/medicare-11.jpg"
