@@ -1,119 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { gsap } from 'gsap';
+import React, {useEffect, useRef, useState} from 'react';
+import {motion} from 'framer-motion';
+import {gsap} from 'gsap';
 import '../styles/contact.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import emailjs from '@emailjs/browser';
-import {
-    faEnvelope,
-    faPhone,
-    faMapMarkerAlt,
-    faPaperPlane,
-    faCheck,
-    faExclamationCircle,
-    faSpinner
-} from '@fortawesome/free-solid-svg-icons';
-import {
-    faGithub,
-    faLinkedinIn,
-    faTwitter,
-    faFacebook
-} from '@fortawesome/free-brands-svg-icons';
+import {faEnvelope, faMapMarkerAlt, faPhone} from '@fortawesome/free-solid-svg-icons';
+import {faGithub, faLinkedinIn} from '@fortawesome/free-brands-svg-icons';
+import {faX} from "@fortawesome/free-solid-svg-icons/faX";
 
 const ContactSection = () => {
-    const [formState, setFormState] = useState({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-    });
-
-    const [submitting, setSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState(null);
-    const [errors, setErrors] = useState({});
-
-    const formRef = useRef(null);
     const infoRef = useRef(null);
     const sectionRef = useRef(null);
 
     useEffect(() => {
         emailjs.init("2Gqr5J7TlBwYh7c12");
     }, []);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormState({
-            ...formState,
-            [name]: value
-        });
-
-        if (errors[name]) {
-            setErrors({
-                ...errors,
-                [name]: null
-            });
-        }
-    };
-
-    const validateForm = () => {
-        const newErrors = {};
-
-        if (!formState.name.trim()) {
-            newErrors.name = 'Name is required';
-        }
-
-        if (!formState.email.trim()) {
-            newErrors.email = 'Email is required';
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)) {
-            newErrors.email = 'Please enter a valid email address';
-        }
-
-        if (!formState.message.trim()) {
-            newErrors.message = 'Message is required';
-        } else if (formState.message.trim().length < 10) {
-            newErrors.message = 'Message must be at least 10 characters';
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!validateForm()) {
-            gsap.to(formRef.current, {
-                x: [-10, 10, -10, 10, 0],
-                duration: 0.4,
-                ease: "power2.inOut"
-            });
-            return;
-        }
-
-        setSubmitting(true);
-
-        try {
-            const subject = formState.subject || 'New Contact Form Submission';
-            const body = `Name: ${formState.name}%0D%0AEmail: ${formState.email}%0D%0A%0D%0AMessage:%0D%0A${formState.message}`;
-            const mailtoLink = `mailto:dnguyenkhan457@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-            window.open(mailtoLink, '_blank');
-
-            setFormState({
-                name: '',
-                email: '',
-                subject: '',
-                message: ''
-            });
-
-        } catch (error) {
-            console.error('Error:', error);
-            setSubmitStatus('error');
-        } finally {
-            setSubmitting(false);
-        }
-    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -242,10 +144,7 @@ const ContactSection = () => {
                                 <FontAwesomeIcon icon={faLinkedinIn} />
                             </a>
                             <a href="https://x.com/NishaYua64898" className="social-icon" aria-label="Twitter" target={'_blank'}>
-                                <FontAwesomeIcon icon={faTwitter} />
-                            </a>
-                            <a href="https://www.facebook.com/thihongluyen.pham.1" className="social-icon" aria-label="Dribbble" target={'_blank'}>
-                                <FontAwesomeIcon icon={faFacebook} />
+                                <FontAwesomeIcon icon={faX} />
                             </a>
                         </div>
                     </motion.div>

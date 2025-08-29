@@ -105,6 +105,7 @@ $button-hover-darken: 10%;
 }
 
 .projects-carousel {
+  max-width: 950px;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(300px, 1fr);
@@ -112,12 +113,6 @@ $button-hover-darken: 10%;
   overflow-x: auto;
   padding: 1rem;
   scroll-snap-type: x mandatory;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 .project-card {
@@ -226,7 +221,7 @@ $button-hover-darken: 10%;
 }
 
 .modal-portal-container {
-  // Empty, just a mounting point
+
 }
 
 .modal-backdrop {
@@ -281,6 +276,7 @@ $button-hover-darken: 10%;
   max-width: 900px;
   position: relative;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding-right: 2rem;
 
   .modal-content-wrapper {
     display: flex;

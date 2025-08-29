@@ -1,9 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { gsap } from 'gsap';
+import React, {useEffect, useRef, useState} from 'react';
+import {AnimatePresence, motion} from 'framer-motion';
+import {gsap} from 'gsap';
 import '../styles/projects.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExternalLinkAlt, faCode } from '@fortawesome/free-solid-svg-icons';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -11,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import {Stack} from "@mui/material";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 const ProjectsSection = () => {
     const [activeFilter, setActiveFilter] = useState('all');
@@ -108,7 +108,7 @@ const ProjectsSection = () => {
             id: 3,
             title: 'Weather Intelligence Platform',
             year: '2024',
-            description: 'A sophisticated weather forecasting system with AI-powered predictions and personalized activity recommendations.',
+            description: 'A weather forecasting system with personalized activity recommendations.',
             images: [
                 "https://i.ibb.co/VcPH1cxw/yeon-1.jpg",
                 "https://i.ibb.co/G4cdsxDt/yeon-2.jpg",
@@ -127,6 +127,47 @@ const ProjectsSection = () => {
             longDescription: 'An advanced weather intelligence platform that provides accurate forecasts and personalized recommendations. The system uses AI to analyze weather patterns and predict conditions, offering users tailored activity suggestions. It features real-time alerts, historical data analysis, and interactive visualizations, making it a comprehensive solution for weather information and planning.',
             liveUrl: '#',
             codeUrl: '#'
+        },
+        {
+            id: 4,
+            title: "PromptSmith",
+            year: '2025',
+            description: 'A Prompt Enhancer Website support various type from casual text prompt to image, video or audio prompt to various model',
+            images: [
+                "https://i.ibb.co/xSsNk4Rc/promptsmith1.png",
+                "https://i.ibb.co/q3vSQmcY/promptsmith2.png"
+            ],
+            techStack: ['JavaScript', 'Gemini API', 'React', 'Material UI', 'i18n'],
+            features: [
+                'Advanced Prompt Enhancement: Utilizes sophisticated AI to refine and optimize prompts for various modalities, including text, image, video, and audio.',
+                'Model-Specific Optimization: Tailors and adapts prompts to maximize performance and output quality across a wide range of AI models.',
+                'Multilingual Support'
+            ],
+            longDescription: 'PromptSmith is an AI-powered web application meticulously engineered to enhance the quality and efficacy of prompts for a diverse array of artificial intelligence models. The platform leverages the Gemini API to perform deep linguistic and contextual analysis to improve the output of generative models.',
+            liveUrl: 'https://promptsmith-lake.vercel.app',
+            codeUrl: '#'
+        },
+        {
+            id: 5,
+            title: "EngType",
+            year: '2025',
+            description: 'A typing practice website that combines typing exercises with learning English.',
+            images: [
+                "https://i.ibb.co/Nn9vfXWd/engtype1.png",
+                "https://i.ibb.co/1G2F4jW4/engtype2.png",
+                "https://i.ibb.co/fz6TdsFC/engtype3.png",
+                "https://i.ibb.co/PsJT71pz/engtype4.png"
+            ],
+            techStack: ['JavaScript', 'Gemini API', 'React', 'Material UI'],
+            features: [
+                'Real-time Performance Metrics: Get instant feedback on your typing speed (WPM) and accuracy.',
+                'Adaptive Difficulty: The system adjusts the text complexity based on your performance, providing a personalized learning experience.',
+                'Customizable Practice Sessions: Choose specific topics or grammar points to focus on while you type.',
+                'User-friendly Interface: A clean and simple design built with Material UI for a seamless experience.'
+            ],
+            longDescription: 'EngType is an innovative web application designed to make typing practice more meaningful and effective. It uniquely combines traditional typing exercises with English language learning, using the Gemini API to generate intelligent, context-aware content. The platform provides a dynamic learning environment where users can simultaneously improve their typing speed and accuracy while also expanding their English vocabulary and grammar skills. With features like real-time performance tracking, adaptive difficulty, and a clean user interface, EngType offers a comprehensive and engaging solution for anyone looking to master both keyboard skills and the English language.',
+            liveUrl: 'https://engtype.vercel.app',
+            codeUrl: '#'
         }
     ];
 
@@ -136,7 +177,7 @@ const ProjectsSection = () => {
 
     const handleProjectClick = (project) => {
         setSelectedProject(project);
-        setCurrentImageIndex(0); // Reset index when opening a new project
+        setCurrentImageIndex(0);
     };
 
     const handleCloseModal = () => {
@@ -160,9 +201,9 @@ const ProjectsSection = () => {
     };
 
     const imageVariants = {
-        hidden: { opacity: 0, scale: 1.05 },
-        visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: 'easeIn' } },
-        exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2, ease: 'easeOut' } }
+        hidden: {opacity: 0, scale: 1.05},
+        visible: {opacity: 1, scale: 1, transition: {duration: 0.3, ease: 'easeIn'}},
+        exit: {opacity: 0, scale: 0.95, transition: {duration: 0.2, ease: 'easeOut'}}
     };
 
     useEffect(() => {
@@ -187,7 +228,6 @@ const ProjectsSection = () => {
         return () => ctx.revert();
     }, []);
 
-    // Cleanup on unmount
     useEffect(() => {
         return () => {
             document.body.style.overflow = 'auto';
@@ -199,11 +239,11 @@ const ProjectsSection = () => {
     }, []);
 
     const titleVariants = {
-        hidden: { opacity: 0, y: 30 },
+        hidden: {opacity: 0, y: 30},
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: "easeOut" }
+            transition: {duration: 0.6, ease: "easeOut"}
         }
     };
 
@@ -262,10 +302,17 @@ const ProjectsSection = () => {
                     className: 'project-modal-paper'
                 }}
             >
-            {selectedProject && (
+                {selectedProject && (
                     <div className="modal-content-wrapper">
-                        <DialogTitle sx={{ m: 0, p: 2, pr: 8, fontSize: 18}}>
-                            {selectedProject.title}
+                        <DialogTitle sx={{m: 0, p: 2, pr: 8, fontSize: 18}}>
+                            <Stack direction={'row'} columnGap={1} alignItems={'center'}>
+                                <b>{selectedProject.title}</b>
+                                {selectedProject.liveUrl !== '#' &&
+                                    <a href={selectedProject.liveUrl}>
+                                        <OpenInNewIcon sx={{color: 'blue'}}/>
+                                    </a>
+                                }
+                            </Stack>
                             <IconButton
                                 aria-label="close"
                                 onClick={handleCloseModal}
@@ -277,7 +324,7 @@ const ProjectsSection = () => {
                                     color: (theme) => theme.palette.grey[600],
                                 }}
                             >
-                                <CloseIcon />
+                                <CloseIcon/>
                             </IconButton>
                         </DialogTitle>
                         <DialogContent dividers className="modal-scroll-container">
@@ -298,12 +345,12 @@ const ProjectsSection = () => {
                                             </AnimatePresence>
                                             <div className="gallery-nav prev">
                                                 <IconButton onClick={handlePrevImage} size="small">
-                                                    <ChevronLeftIcon fontSize="large" />
+                                                    <ChevronLeftIcon fontSize="large"/>
                                                 </IconButton>
                                             </div>
                                             <div className="gallery-nav next">
                                                 <IconButton onClick={handleNextImage} size="small">
-                                                    <ChevronRightIcon fontSize="large" />
+                                                    <ChevronRightIcon fontSize="large"/>
                                                 </IconButton>
                                             </div>
                                         </div>
@@ -315,7 +362,7 @@ const ProjectsSection = () => {
                                                         className={`thumbnail-item ${index === currentImageIndex ? 'active' : ''}`}
                                                         onClick={() => handleThumbnailClick(index)}
                                                     >
-                                                        <img src={imgSrc} alt={`Thumbnail ${index + 1}`} />
+                                                        <img src={imgSrc} alt={`Thumbnail ${index + 1}`}/>
                                                     </div>
                                                 ))}
                                             </div>
@@ -327,31 +374,31 @@ const ProjectsSection = () => {
                                     <h4 style={{
                                         fontSize: '1.8rem',
                                         marginTop: 0,
-                                        marginBottom: '1.5rem', // Increased margin
+                                        marginBottom: '1.5rem',
                                         color: '#444'
                                     }}>Overview</h4>
                                     <p style={{
                                         fontSize: '1.5rem',
                                         lineHeight: 1.6,
                                         color: '#666',
-                                        marginBottom: '2.5rem' // Increased margin
+                                        marginBottom: '2.5rem'
                                     }}>{selectedProject.longDescription}</p>
 
                                     <h4 style={{
                                         fontSize: '1.8rem',
-                                        marginBottom: '1.5rem', // Increased margin
+                                        marginBottom: '1.5rem',
                                         color: '#444'
                                     }}>Key Features</h4>
                                     <ul style={{
                                         listStyle: 'none',
                                         padding: 0,
-                                        margin: '0 0 2.5rem 0' // Increased margin
+                                        margin: '0 0 2.5rem 0'
                                     }}>
                                         {selectedProject.features.map((feature, index) => (
                                             <li key={index} style={{
                                                 display: 'flex',
                                                 alignItems: 'flex-start',
-                                                marginBottom: '1rem', // Increased margin
+                                                marginBottom: '1rem',
                                                 fontSize: '1.4rem',
                                                 color: '#555'
                                             }}>
@@ -368,13 +415,13 @@ const ProjectsSection = () => {
 
                                     <h4 style={{
                                         fontSize: '1.8rem',
-                                        marginBottom: '1.5rem', // Increased margin
+                                        marginBottom: '1.5rem',
                                         color: '#444'
                                     }}>Technology Stack</h4>
                                     <div style={{
                                         display: 'flex',
                                         flexWrap: 'wrap',
-                                        gap: '1rem' // Increased gap
+                                        gap: '1rem'
                                     }}>
                                         {selectedProject.techStack.map((tech, index) => (
                                             <span key={index} style={{
@@ -385,7 +432,7 @@ const ProjectsSection = () => {
                                                 borderRadius: '30px',
                                                 fontWeight: 500,
                                                 display: 'inline-block',
-                                                margin: '0.3rem' // Increased margin
+                                                margin: '0.3rem'
                                             }}>{tech}</span>
                                         ))}
                                     </div>

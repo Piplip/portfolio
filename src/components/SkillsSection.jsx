@@ -18,7 +18,8 @@ const SkillsSection = () => {
                 { name: 'CSS' },
                 { name: 'JavaScript' },
                 { name: 'React' },
-                { name: 'Material UI' }
+                { name: 'Material UI' },
+                { name: 'Vite' },
             ]
         },
         {
@@ -27,15 +28,16 @@ const SkillsSection = () => {
                 { name: 'Spring Boot' },
                 { name: 'Java' },
                 { name: 'MySQL' },
-                { name: 'Firebase' }
+                { name: 'Firebase' },
+                { name: 'jOOQ' },
             ]
         },
         {
             category: 'Tools',
             items: [
                 { name: 'Git' },
-                { name: 'Vite' },
-                { name: 'Figma' }
+                { name: 'Figma' },
+                { name: 'IntelliJ' }
             ]
         },
         {
@@ -49,7 +51,6 @@ const SkillsSection = () => {
         }
     ];
 
-    // Framer Motion variants
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {

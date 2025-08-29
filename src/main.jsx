@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom/client';
 import './style.scss';
 import {gsap} from 'gsap';
@@ -13,6 +13,7 @@ import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
+import { Analytics } from "@vercel/analytics/next"
 
 if ('scrollRestoration' in window.history) {
     window.history.scrollRestoration = 'manual';
@@ -225,6 +226,8 @@ function App() {
 
     return (
         <div className="portfolio-container">
+            <Analytics />
+
             <div ref={scrollIndicatorRef} className="scroll-indicator"></div>
 
             <Navbar scrollToSection={scrollToSection} sectionIds={sectionIds}/>
