@@ -6,47 +6,49 @@ import {
     Chip,
     useTheme
 } from '@mui/material';
+import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaGit, FaJava } from 'react-icons/fa';
 import '../styles/skills.scss';
 
 const SkillsSection = () => {
-    const theme = useTheme();
     const skills = [
         {
             category: 'Frontend',
             items: [
-                { name: 'HTML' },
-                { name: 'CSS' },
-                { name: 'JavaScript' },
-                { name: 'React' },
+                { name: 'HTML', icon: <FaHtml5 /> },
+                { name: 'CSS', icon: <FaCss3Alt /> },
+                { name: 'JavaScript', icon: <FaJs /> },
+                { name: 'React', icon: <FaReact /> },
                 { name: 'Material UI' },
                 { name: 'Vite' },
+                { name: 'Responsive Design' },
+                { name: 'SEO' },
             ]
         },
         {
             category: 'Backend',
             items: [
                 { name: 'Spring Boot' },
-                { name: 'Java' },
+                { name: 'Java', icon: <FaJava /> },
                 { name: 'MySQL' },
                 { name: 'Firebase' },
                 { name: 'jOOQ' },
+                { name: 'Maven' },
             ]
         },
         {
             category: 'Tools',
             items: [
-                { name: 'Git' },
-                { name: 'Figma' },
-                { name: 'IntelliJ' }
+                { name: 'Git', icon: <FaGit /> },
+                { name: 'Google Cloud' }
             ]
         },
         {
             category: 'Other',
             items: [
-                { name: 'Responsive Design' },
+                { name: 'Project Management' },
                 { name: 'Microservices' },
                 { name: 'Web Security' },
-                { name: 'Web Performance' }
+                { name: 'LLM Utilization' },
             ]
         }
     ];
@@ -91,6 +93,12 @@ const SkillsSection = () => {
                         component={motion.div}
                         variants={itemVariants}
                         className="skill-group"
+                        sx={{
+                            '&:hover': {
+                                transform: 'scale(1.05)',
+                                boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)'
+                            }
+                        }}
                     >
                         <Typography
                             className="skill-category"
@@ -107,13 +115,19 @@ const SkillsSection = () => {
                             {skillGroup.items.map((skill, i) => (
                                 <Chip
                                     key={i}
-                                    label={skill.name}
+                                    label={
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                            {skill.icon && skill.icon}
+                                            {skill.name}
+                                        </Box>
+                                    }
                                     sx={{
                                         backgroundColor: 'rgba(230, 57, 70, 0.1)',
                                         color: '#333',
                                         border: '1px solid rgba(230, 57, 70, 0.2)',
                                         '&:hover': {
-                                            backgroundColor: 'rgba(230, 57, 70, 0.2)'
+                                            backgroundColor: 'rgba(230, 57, 70, 0.2)',
+                                            transform: 'scale(1.1)'
                                         },
                                         height: '32px',
                                         '& .MuiChip-label': {

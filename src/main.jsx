@@ -1,10 +1,11 @@
 import {useEffect, useRef} from 'react';
-import ReactDOM from 'react-dom/client';
 import './style.scss';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 import { motion } from 'framer-motion';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
@@ -262,7 +263,7 @@ function App() {
     );
 }
 
-ReactDOM.createRoot(document.getElementById('app')).render(
+createRoot(document.getElementById('app')).render(
     <React.StrictMode>
         <App/>
     </React.StrictMode>

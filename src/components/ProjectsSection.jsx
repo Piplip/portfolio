@@ -24,7 +24,7 @@ const ProjectsSection = () => {
             id: 1,
             title: 'Event Management System',
             year: '2025',
-            description: 'A comprehensive event management platform with AI-powered features, real-time analytics, and secure payment processing.',
+            description: 'An event management platform with AI-powered features, real-time analytics, and secure payment processing.',
             images: [
                 "https://i.ibb.co/4nqtzstV/tixery-9.png",
                 "https://i.ibb.co/k6rkcf4m/tixery-1.png",
@@ -59,17 +59,17 @@ const ProjectsSection = () => {
                 "https://i.ibb.co/v4xwPtBw/tixery-32.png",
                 "https://i.ibb.co/N6rQh5Ty/tixery-33.png"
             ],
-            techStack: ['React', 'Spring Boot', 'MySQL', 'PostgreSQL', 'Redis', 'Spring Cloud', 'Google Cloud', 'jOOQ', 'Spring Security', 'Prometheus', 'ELK-stack', 'Grafana', 'Stripe', 'Google Pay', 'Google Analytics', 'Firebase', 'JWT', 'Leaflet', 'Gemini', 'Stability AI', 'Python', 'Flask', 'Material UI'],
+            techStack: ['React', 'Spring Boot', 'MySQL', 'PostgreSQL', 'Redis', 'Spring Cloud', 'Google Cloud', 'i18n', 'jOOQ', 'Spring Security', 'Prometheus', 'ELK-stack', 'Grafana', 'Stripe', 'Google Pay', 'Google Analytics', 'Firebase', 'JWT', 'Leaflet', 'Gemini', 'Python', 'Flask', 'Material UI'],
             features: [
                 'User authentication and authorization (Oauth2)',
                 'Monitored and managed server infrastructure',
                 'AI integration in various features in the system',
-                'Microservices architecture with Spring Cloud for high scalability',
+                'Microservices architecture with Spring Cloud for scalability',
                 'AI-powered event recommendations using Neural Collaborative Filtering',
                 'Secure payment processing with Stripe and Google Pay integration',
                 'Multi-language support with i18n integration',
             ],
-            longDescription: 'A sophisticated event management platform that revolutionizes how events are organized and attended. Built with a microservices architecture, it ensures high availability and scalability. The system incorporates AI for personalized recommendations, real-time analytics for event insights, and secure payment processing. Features include comprehensive event management tools, attendee tracking, and a robust notification system.',
+            longDescription: 'An event management platform built with a microservices architecture, it ensures availability and scalability. The system incorporates AI for personalized recommendations, real-time analytics for event insights, and secure payment processing. Features include event management tools, attendee tracking, etc.',
             liveUrl: '#',
             codeUrl: '#'
         },
@@ -77,7 +77,7 @@ const ProjectsSection = () => {
             id: 2,
             title: 'Healthcare Appointment System',
             year: '2024',
-            description: 'An intelligent healthcare management platform with AI integration, real-time scheduling, and secure patient data handling.',
+            description: 'A healthcare management platform with AI integration and  real-time scheduling.',
             images: [
                 "https://i.ibb.co/1JGV4CJT/medicare-8.jpg",
                 "https://i.ibb.co/w327nLz/medicare-1.jpg",
@@ -93,14 +93,13 @@ const ProjectsSection = () => {
             ],
             techStack: ['React', 'Spring Boot', 'MySQL', 'Redis', 'jOOQ', 'Spring Security', 'Firebase', 'JWT', 'OCR', 'VNPay', 'OpenAI', 'Material UI'],
             features: [
-                'Smart appointment scheduling with conflict detection',
+                'Real-time appointment scheduling',
                 'AI-powered chatbot for patient queries using OpenAI',
                 'Secure appointment with OCR integration',
                 'Real-time payment processing with VNPay integration',
-                'Automated appointment reminders and follow-ups',
                 'Multi-language support with medical terminology',
             ],
-            longDescription: 'A comprehensive healthcare management system designed to streamline medical appointments and patient care. The platform features an intelligent scheduling system, AI-powered patient support, and secure handling of medical records. It includes OCR technology for prescription management, real-time payment processing, and a robust notification system for appointment management.',
+            longDescription: 'A healthcare management system designed to streamline medical appointments and patient care. The platform features an intelligent scheduling system and AI-powered patient support.',
             liveUrl: '#',
             codeUrl: '#'
         },
@@ -119,12 +118,10 @@ const ProjectsSection = () => {
                 'Real-time weather forecasting',
                 'Personalized activity recommendations based on weather conditions',
                 'Severe weather alerts and notifications',
-                'Historical weather data analysis and trends',
                 'Interactive weather maps and visualizations',
-                'Multi-language support with weather terminology',
-                'API integration with major weather data providers'
+                'Multi-language support',
             ],
-            longDescription: 'An advanced weather intelligence platform that provides accurate forecasts and personalized recommendations. The system uses AI to analyze weather patterns and predict conditions, offering users tailored activity suggestions. It features real-time alerts, historical data analysis, and interactive visualizations, making it a comprehensive solution for weather information and planning.',
+            longDescription: 'A weather platform that provides accurate forecasts and personalized recommendations. The system offering users tailored activity suggestions. It features real-time alerts and interactive visualizations, making it a comprehensive solution for weather information and planning.',
             liveUrl: '#',
             codeUrl: '#'
         },
@@ -139,11 +136,11 @@ const ProjectsSection = () => {
             ],
             techStack: ['JavaScript', 'Gemini API', 'React', 'Material UI', 'i18n'],
             features: [
-                'Advanced Prompt Enhancement: Utilizes sophisticated AI to refine and optimize prompts for various modalities, including text, image, video, and audio.',
+                'Advanced Prompt Enhancement: Utilizes AI to refine and optimize prompts for various modalities, including text, image, video, and audio.',
                 'Model-Specific Optimization: Tailors and adapts prompts to maximize performance and output quality across a wide range of AI models.',
                 'Multilingual Support'
             ],
-            longDescription: 'PromptSmith is an AI-powered web application meticulously engineered to enhance the quality and efficacy of prompts for a diverse array of artificial intelligence models. The platform leverages the Gemini API to perform deep linguistic and contextual analysis to improve the output of generative models.',
+            longDescription: 'PromptSmith is an AI-powered web application engineered to enhance the quality and efficacy of prompts for a diverse array of artificial intelligence models. The platform leverages the Gemini API to perform deep linguistic and contextual analysis to improve the output of generative models.',
             liveUrl: 'https://promptsmith-lake.vercel.app',
             codeUrl: '#'
         },
@@ -165,7 +162,7 @@ const ProjectsSection = () => {
                 'Customizable Practice Sessions: Choose specific topics or grammar points to focus on while you type.',
                 'User-friendly Interface: A clean and simple design built with Material UI for a seamless experience.'
             ],
-            longDescription: 'EngType is an innovative web application designed to make typing practice more meaningful and effective. It uniquely combines traditional typing exercises with English language learning, using the Gemini API to generate intelligent, context-aware content. The platform provides a dynamic learning environment where users can simultaneously improve their typing speed and accuracy while also expanding their English vocabulary and grammar skills. With features like real-time performance tracking, adaptive difficulty, and a clean user interface, EngType offers a comprehensive and engaging solution for anyone looking to master both keyboard skills and the English language.',
+            longDescription: 'EngType is an web application designed to make typing practice more meaningful and effective. It combines traditional typing exercises with English language learning, using the Gemini API to generate context-aware content. The platform provides a dynamic learning environment where users can simultaneously improve their typing speed and accuracy while also expanding their English vocabulary and grammar skills.',
             liveUrl: 'https://engtype.vercel.app',
             codeUrl: '#'
         }
@@ -251,10 +248,6 @@ const ProjectsSection = () => {
         <div className="projects-container horizontal-projects" ref={projectsRef}>
             <div className="projects-header">
                 <motion.h2 variants={titleVariants}>My Projects</motion.h2>
-                <p className="section-description">
-                    Browse through my recent work. Projects automatically reveal as you scroll horizontally through the
-                    portfolio.
-                </p>
             </div>
 
             <div className="projects-carousel" ref={projectsGridRef}>

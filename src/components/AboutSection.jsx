@@ -79,7 +79,7 @@ const AboutSection = () => {
                     <motion.h2 variants={titleVariants}>About Me</motion.h2>
 
                     <motion.p variants={paragraphVariants}>
-                        A highly motivated software developer dedicated to architecting and implementing scalable solutions.
+                        A software developer dedicated to architecting and implementing scalable solutions.
                         Expertise in developing engaging front-end interfaces with <span className="highlight-text">React</span>,
                         seamlessly integrated with robust back-end systems powered by the <span className="highlight-text">Spring</span> framework.
                     </motion.p>
