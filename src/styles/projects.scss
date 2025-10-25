@@ -364,7 +364,6 @@ $button-hover-darken: 10%;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  border-bottom: 1px solid $medium-gray;
   padding-bottom: 1.5rem;
   padding-right: 4.5rem;
 
@@ -564,4 +563,10 @@ $button-hover-darken: 10%;
       }
     }
   }
+}
+
+.modal-actions {
+  display: flex;
+  width: 100%;
+  gap: 0;
 }

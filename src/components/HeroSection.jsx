@@ -3,12 +3,15 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import '../styles/hero.scss';
 
-const HeroSection = ({ scrollToSection }) => {
+import './shared/RotatingText.css';
+import RotatingText from './shared/RotatingText';
+
+const HeroSection = ({ scrollToSection, triggerHyperspeed }) => {
     const highlightRef = useRef(null);
     const container = useRef(null);
 
     const scrollToNextSection = () => {
-        scrollToSection(1);
+        triggerHyperspeed(1);
     };
 
     useEffect(() => {
@@ -84,9 +87,12 @@ const HeroSection = ({ scrollToSection }) => {
                 Hi, I'm <span className="highlight" ref={highlightRef}>Nguyen Khanh Du</span>
             </motion.h1>
 
-            <motion.h2 variants={itemVariants}>
-                Software Developer
-            </motion.h2>
+            <RotatingText
+                texts={["Software Developer", "Creative Coder", "Random Person", "😊😊😊😊😊😊"]}
+                rotationInterval={3000}
+                splitBy="words"
+                className="hero-subtitle"
+            />
 
             <motion.p variants={itemVariants}>
                 Crafting innovative solutions with a passion for technology and a commitment to excellence.

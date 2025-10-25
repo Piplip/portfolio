@@ -19,6 +19,23 @@ $font-body: 'Open Sans', sans-serif;
     background-color: $pure-white;
     align-items: center;
 
+  .skills-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .section-title {
+    z-index: 1;
+  }
+
+  .skills-content {
+    z-index: 1;
+  }
+
     .section-title {
         font-size: 4.2rem;
         margin-bottom: 4rem;
@@ -43,44 +60,102 @@ $font-body: 'Open Sans', sans-serif;
     }
 
     .skills-content {
-        display: flex;
-        flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
         max-width: 1000px;
         padding: 0 2rem;
         width: 100%;
     }
 
-    .skill-group {
-        display: flex;
-        flex-direction: column;
-        padding: 1.5rem;
-        background: $pure-white;
-        border-radius: 0.8rem;
-        border: 1px solid rgba(230, 57, 70, 0.2);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        min-width: 50vw;
+  .skill-group {
 
-        &:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 1rem;
+
+    padding: 2rem;
+
+    border-top: 2px solid rgba(255, 255, 255, 0.5);
+
+    border-left: 2px solid rgba(255, 255, 255, 0.5);
+
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    &.frontend {
+      border-left: 5px solid #61DAFB;
+    }
+
+    &.backend {
+      border-left: 5px solid #4CAF50;
+    }
+
+    &.tools {
+      border-left: 5px solid #FFC107;
+    }
+
+    &.other {
+      border-left: 5px solid #9E9E9E;
         }
 
         .skill-category {
             font-family: $font-heading;
-            letter-spacing: 0.5px;
-            position: relative;
-            color: $primary-red;
-            font-size: 2rem;
-            font-weight: 600;
+          letter-spacing: 1px;
+          color: $pure-black;
+          font-size: 2.2rem;
+          font-weight: 700;
+          margin-bottom: 1.5rem;
         }
 
         .skill-chips {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
-            padding: 0.25rem;
+          gap: 1rem;
           cursor: pointer;
+
+          .MuiChip-root {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: $pure-black;
+            border: none;
+            font-size: 1.4rem;
+            font-weight: 500;
+            padding: 1rem;
+            height: auto;
+            position: relative;
+
+            &::before, &::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              border-radius: 16px;
+              pointer-events: none;
+            }
+
+            &::before {
+              background: linear-gradient(to right, black, transparent);
+              height: 2px;
+            }
+
+            &::after {
+              background: linear-gradient(to bottom, black, transparent);
+              width: 2px;
+            }
+
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.3);
+              transform: scale(1.05);
+            }
+          }
         }
     }
 }

@@ -15,6 +15,8 @@ import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import { Analytics } from '@vercel/analytics/react';
+import ParticlesBackground from "./components/ParticlesBackground.jsx";
+import AnimatedBackground from "./components/AnimatedBackground.jsx";
 
 if ('scrollRestoration' in window.history) {
     window.history.scrollRestoration = 'manual';
@@ -22,10 +24,21 @@ if ('scrollRestoration' in window.history) {
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+import Hyperspeed from './components/shared/Hyperspeed';
+
 function App() {
+    const [showHyperspeed, setShowHyperspeed] = React.useState(false);
     const scrollIndicatorRef = useRef(null);
     const sectionIds = ['hero-section', 'about-section', 'skills-section', 'projects-section', 'contact-section'];
     const lastActiveIndexRef = useRef(0);
+
+    const triggerHyperspeed = (sectionIndex) => {
+        setShowHyperspeed(true);
+        setTimeout(() => {
+            setShowHyperspeed(false);
+            scrollToSection(sectionIndex);
+        }, 2000);
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -229,6 +242,8 @@ function App() {
         <div className="portfolio-container">
             <Analytics mode={'production'}/>
 
+            {showHyperspeed && <Hyperspeed />}
+
             <div ref={scrollIndicatorRef} className="scroll-indicator"></div>
 
             <Navbar scrollToSection={scrollToSection} sectionIds={sectionIds}/>
@@ -241,7 +256,7 @@ function App() {
                 >
                     <div className="horizontal-sections">
                         <section id="hero-section" className="section">
-                            <HeroSection scrollToSection={scrollToSection}/>
+                            <HeroSection scrollToSection={scrollToSection} triggerHyperspeed={triggerHyperspeed}/>
                         </section>
                         <section id="about-section" className="section">
                             <AboutSection/>

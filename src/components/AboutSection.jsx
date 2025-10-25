@@ -1,8 +1,49 @@
-import React from 'react';
-import {motion} from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import "../styles/about.scss";
 
+const useTilt = () => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseX = useSpring(x, { stiffness: 100, damping: 30 });
+    const mouseY = useSpring(y, { stiffness: 100, damping: 30 });
+
+    const rotateX = useTransform(
+        mouseY,
+        [-0.5, 0.5],
+        ["17.5deg", "-17.5deg"]
+    );
+
+    const rotateY = useTransform(
+        mouseX,
+        [-0.5, 0.5],
+        ["-17.5deg", "17.5deg"]
+    );
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const xPct = mouseX / width - 0.5;
+        const yPct = mouseY / height - 0.5;
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return { rotateX, rotateY, handleMouseMove, handleMouseLeave };
+};
+
 const AboutSection = () => {
+    const { rotateX, rotateY, handleMouseMove, handleMouseLeave } = useTilt();
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -58,10 +99,16 @@ const AboutSection = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
         >
-            <div className="about-content">
+            <motion.div
+                className="about-content"
+                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+            >
                 <motion.div
                     className="about-image"
                     variants={imageVariants}
+                    style={{ transform: "translateZ(75px)" }}
                 >
                     <div className="image-wrapper">
                         <img
@@ -75,6 +122,7 @@ const AboutSection = () => {
                 <motion.div
                     className="about-text"
                     variants={textVariants}
+                    style={{ transform: "translateZ(50px)" }}
                 >
                     <motion.h2 variants={titleVariants}>About Me</motion.h2>
 
@@ -95,7 +143,7 @@ const AboutSection = () => {
                         continuous learning, and contributing to open-source projects in the developer community.
                     </motion.p>
                 </motion.div>
-            </div>
+            </motion.div>
         </motion.div>
     );
 };

@@ -6,6 +6,8 @@ import {
     Chip,
     useTheme
 } from '@mui/material';
+import Particles from './shared/Particles';
+import './shared/Particles.css';
 import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaGit, FaJava } from 'react-icons/fa';
 import '../styles/skills.scss';
 
@@ -82,8 +84,15 @@ const SkillsSection = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
         >
+            <Particles
+                className="skills-particles"
+                particleCount={100}
+                particleColors={['#e63946', '#f1faee', '#a8dadc', '#457b9d', '#1d3557']}
+                speed={0.1}
+                particleBaseSize={2}
+            />
             <h2 className="section-title">
-                Skills & Technologies
+                Skills
             </h2>
 
             <Box className="skills-content">
@@ -92,23 +101,9 @@ const SkillsSection = () => {
                         key={index}
                         component={motion.div}
                         variants={itemVariants}
-                        className="skill-group"
-                        sx={{
-                            '&:hover': {
-                                transform: 'scale(1.05)',
-                                boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)'
-                            }
-                        }}
-                    >
+                        className={`skill-group ${skillGroup.category.toLowerCase()}`}>
                         <Typography
-                            className="skill-category"
-                            sx={{
-                                fontSize: '2rem',
-                                fontWeight: 600,
-                                color: '#333',
-                                mb: 2
-                            }}
-                        >
+                            className="skill-category">
                             {skillGroup.category}
                         </Typography>
                         <Box className="skill-chips">
@@ -121,21 +116,6 @@ const SkillsSection = () => {
                                             {skill.name}
                                         </Box>
                                     }
-                                    sx={{
-                                        backgroundColor: 'rgba(230, 57, 70, 0.1)',
-                                        color: '#333',
-                                        border: '1px solid rgba(230, 57, 70, 0.2)',
-                                        '&:hover': {
-                                            backgroundColor: 'rgba(230, 57, 70, 0.2)',
-                                            transform: 'scale(1.1)'
-                                        },
-                                        height: '32px',
-                                        '& .MuiChip-label': {
-                                            px: 2,
-                                            fontSize: '1.25rem',
-                                            fontWeight: 500
-                                        }
-                                    }}
                                 />
                             ))}
                         </Box>
