@@ -1,18 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {AnimatePresence, motion} from 'framer-motion';
-import {gsap} from 'gsap';
+import { motion } from 'framer-motion';
+import { gsap } from 'gsap';
 import '../styles/projects.scss';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {Button, DialogActions, Stack} from "@mui/material";
-import './shared/SpotLightCard.css';
-import SpotlightCard from './shared/SpotLightCard';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import ProjectCard from './ProjectCard';
+import ProjectModal from './ProjectModal';
 
 const projects = [
     {
@@ -189,7 +180,6 @@ const projects = [
 const ProjectsSection = () => {
     const [activeFilter, setActiveFilter] = useState('all');
     const [selectedProject, setSelectedProject] = useState(null);
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const projectsRef = useRef(null);
     const projectsGridRef = useRef(null);
 
@@ -199,33 +189,10 @@ const ProjectsSection = () => {
 
     const handleProjectClick = (project) => {
         setSelectedProject(project);
-        setCurrentImageIndex(0);
     };
 
     const handleCloseModal = () => {
         setSelectedProject(null);
-    };
-
-    const handleNextImage = () => {
-        if (selectedProject) {
-            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedProject.images.length);
-        }
-    };
-
-    const handlePrevImage = () => {
-        if (selectedProject) {
-            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedProject.images.length) % selectedProject.images.length);
-        }
-    };
-
-    const handleThumbnailClick = (index) => {
-        setCurrentImageIndex(index);
-    };
-
-    const imageVariants = {
-        hidden: {opacity: 0, scale: 1.05},
-        visible: {opacity: 1, scale: 1, transition: {duration: 0.3, ease: 'easeIn'}},
-        exit: {opacity: 0, scale: 0.95, transition: {duration: 0.2, ease: 'easeOut'}}
     };
 
     useEffect(() => {
@@ -234,7 +201,7 @@ const ProjectsSection = () => {
                 const projectCards = projectsGridRef.current.querySelectorAll('.project-card');
                 gsap.fromTo(
                     projectCards,
-                    {opacity: 0, y: 30},
+                    { opacity: 0, y: 30 },
                     {
                         opacity: 1,
                         y: 0,
@@ -250,302 +217,37 @@ const ProjectsSection = () => {
         return () => ctx.revert();
     }, []);
 
-    useEffect(() => {
-        return () => {
-            document.body.style.overflow = 'auto';
-            const horizontalContainer = document.querySelector('.horizontal-scroll-container');
-            if (horizontalContainer) {
-                horizontalContainer.style.pointerEvents = 'auto';
-            }
-        };
-    }, []);
-
     const titleVariants = {
-        hidden: {opacity: 0, y: 30},
+        hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: {duration: 0.6, ease: "easeOut"}
+            transition: { duration: 0.6, ease: "easeOut" }
         }
     };
 
     return (
         <div className="projects-container horizontal-projects" ref={projectsRef}>
             <div className="projects-header">
-                <motion.h2 variants={titleVariants}>My Projects</motion.h2>
+                <motion.h2>
+                    My Projects
+                </motion.h2>
             </div>
 
             <div className="projects-carousel" ref={projectsGridRef}>
                 {filteredProjects.map((project) => (
-                    <motion.div
+                    <ProjectCard
                         key={project.id}
-                        className="project-card"
-                        onClick={() => handleProjectClick(project)}
-                        initial={{opacity: 0}}
-                        animate={{opacity: 1}}
-                        exit={{opacity: 0}}
-                        transition={{duration: 0.3}}
-                        layout
-                    >
-                        <div className="project-image">
-                            <img src={project.images[0]} alt={project.title}/>
-                            <div className="project-overlay">
-                                <span>View Details</span>
-                            </div>
-                        </div>
-                        <div className="project-info">
-                            <div className="project-header">
-                                <h3>{project.title}</h3>
-                                <span className="project-year">{project.year}</span>
-                            </div>
-                            <p>{project.description}</p>
-                            <div className="tech-stack">
-                                {project.techStack.slice(0, 3).map((tech, index) => (
-                                    <span key={index} className="tech-tag">{tech}</span>
-                                ))}
-                                {project.techStack.length > 3 && (
-                                    <span className="tech-tag more">+{project.techStack.length - 3} more</span>
-                                )}
-                            </div>
-                        </div>
-                    </motion.div>
+                        project={project}
+                        onClick={handleProjectClick}
+                    />
                 ))}
             </div>
 
-            <Dialog
-                open={selectedProject !== null}
+            <ProjectModal
+                project={selectedProject}
                 onClose={handleCloseModal}
-                maxWidth="lg"
-                PaperProps={{
-                    className: 'project-modal-paper'
-                }}
-            >
-                {selectedProject && (
-                    <div className="modal-content-wrapper">
-                        <DialogTitle sx={{ m: 0, p: 2, pr: 8, fontSize: 18 }}>
-                            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-                                <b>{selectedProject.title}</b>
-                                {selectedProject.liveUrl !== '#' &&
-                                    <Button
-                                        href={selectedProject.liveUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        startIcon={<OpenInNewIcon/>}
-                                        sx={{
-                                            backgroundColor: '#e63946',
-                                            color: 'white',
-                                            padding: '0.5rem 1rem',
-                                            fontSize: '1.2rem',
-                                            fontWeight: 600,
-                                            '&:hover': {
-                                                backgroundColor: '#c22a37'
-                                            }
-                                        }}
-                                    >
-                                        Live URL
-                                    </Button>
-                                }
-                            </Stack>
-                            <IconButton
-                                aria-label="close"
-                                onClick={handleCloseModal}
-                                className="modal-close"
-                                sx={{
-                                    position: 'absolute',
-                                    right: 12,
-                                    top: 12,
-                                    color: (theme) => theme.palette.grey[600],
-                                }}
-                            >
-                                <CloseIcon/>
-                            </IconButton>
-                        </DialogTitle>
-                        <DialogContent dividers className="modal-scroll-container">
-                            <div className="modal-body">
-                                <div className="modal-image">
-                                    <div className="image-gallery">
-                                        <div className="gallery-main-image">
-                                            <AnimatePresence mode="wait">
-                                                <motion.img
-                                                    key={currentImageIndex}
-                                                    src={selectedProject.images[currentImageIndex]}
-                                                    alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
-                                                    variants={imageVariants}
-                                                    initial="hidden"
-                                                    animate="visible"
-                                                    exit="exit"
-                                                />
-                                            </AnimatePresence>
-                                            <div className="gallery-nav prev">
-                                                <IconButton onClick={handlePrevImage} size="small">
-                                                    <ChevronLeftIcon fontSize="large"/>
-                                                </IconButton>
-                                            </div>
-                                            <div className="gallery-nav next">
-                                                <IconButton onClick={handleNextImage} size="small">
-                                                    <ChevronRightIcon fontSize="large"/>
-                                                </IconButton>
-                                            </div>
-                                        </div>
-                                        {selectedProject.images.length > 1 && (
-                                            <div className="gallery-thumbnails">
-                                                {selectedProject.images.map((imgSrc, index) => (
-                                                    <div
-                                                        key={index}
-                                                        className={`thumbnail-item ${index === currentImageIndex ? 'active' : ''}`}
-                                                        onClick={() => handleThumbnailClick(index)}
-                                                    >
-                                                        <img src={imgSrc} alt={`Thumbnail ${index + 1}`}/>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h4 style={{
-                                        fontSize: '1.8rem',
-                                        marginTop: 0,
-                                        marginBottom: '1.5rem',
-                                        color: '#444'
-                                    }}>Overview</h4>
-                                    <p style={{
-                                        fontSize: '1.5rem',
-                                        lineHeight: 1.6,
-                                        color: '#666',
-                                        marginBottom: '2.5rem'
-                                    }}>{selectedProject.longDescription}</p>
-
-                                    <h4 style={{
-                                        fontSize: '1.8rem',
-                                        marginBottom: '1.5rem',
-                                        color: '#444'
-                                    }}>Key Features</h4>
-                                    <ul style={{
-                                        listStyle: 'none',
-                                        padding: 0,
-                                        margin: '0 0 2.5rem 0'
-                                    }}>
-                                        {selectedProject.features.map((feature, index) => (
-                                            <li key={index} style={{
-                                                display: 'flex',
-                                                alignItems: 'flex-start',
-                                                marginBottom: '1rem',
-                                                fontSize: '1.4rem',
-                                                color: '#555'
-                                            }}>
-                                                <span style={{
-                                                    display: 'inline-block',
-                                                    marginRight: '1rem',
-                                                    color: '#e63946',
-                                                    fontWeight: 'bold'
-                                                }}>→</span>
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-
-                                    <h4 style={{
-                                        fontSize: '1.8rem',
-                                        marginBottom: '1.5rem',
-                                        color: '#444'
-                                    }}>Technology Stack</h4>
-                                    <div style={{
-                                        display: 'flex',
-                                        flexWrap: 'wrap',
-                                        gap: '1rem'
-                                    }}>
-                                        {selectedProject.techStack.map((tech, index) => (
-                                            <span key={index} style={{
-                                                fontSize: '1.2rem',
-                                                padding: '0.4rem 1.2rem',
-                                                backgroundColor: '#f5f5f5',
-                                                color: '#555',
-                                                borderRadius: '30px',
-                                                fontWeight: 500,
-                                                display: 'inline-block',
-                                                margin: '0.3rem'
-                                            }}>{tech}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </DialogContent>
-                        <DialogActions sx={{ p: 0, position: 'sticky', bottom: 0, backgroundColor: 'white', paddingInline: 3 }}>
-                            <div className="modal-actions">
-                                {selectedProject.codeUrl && selectedProject.codeUrl !== '#' && (
-                                    <Button
-                                        href={selectedProject.codeUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        startIcon={<OpenInNewIcon/>}
-                                        sx={{
-                                            flex: 1,
-                                            backgroundColor: '#f5f5f5',
-                                            color: '#333',
-                                            border: '1px solid #ddd',
-                                            borderRadius: 0,
-                                            height: '48px',
-                                            padding: '1rem',
-                                            '&:hover': {
-                                                backgroundColor: '#e2e6ea'
-                                            }
-                                        }}
-                                    >
-                                        View Code
-                                    </Button>
-                                )}
-                                {selectedProject.frontendUrl && (
-                                    <Button
-                                        href={selectedProject.frontendUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        startIcon={<OpenInNewIcon/>}
-                                        sx={{
-                                            flex: 1,
-                                            backgroundColor: '#e63946',
-                                            color: 'white',
-                                            border: '1px solid #ddd',
-                                            borderRadius: 0,
-                                            fontSize: 16,
-                                            height: '48px',
-                                            '&:hover': {
-                                                backgroundColor: '#c22a37'
-                                            }
-                                        }}
-                                    >
-                                        Frontend Code
-                                    </Button>
-                                )}
-                                {selectedProject.backendUrl && (
-                                    <Button
-                                        href={selectedProject.backendUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        startIcon={<OpenInNewIcon/>}
-                                        sx={{
-                                            flex: 1,
-                                            backgroundColor: '#f5f5f5',
-                                            color: '#333',
-                                            fontSize: 16,
-                                            border: '1px solid #ddd',
-                                            borderRadius: 0,
-                                            height: '48px',
-                                            padding: '1rem',
-                                            '&:hover': {
-                                                backgroundColor: '#e2e6ea'
-                                            }
-                                        }}
-                                    >
-                                        Backend Code
-                                    </Button>
-                                )}
-                            </div>
-                        </DialogActions>
-                    </div>
-                )}
-            </Dialog>
+            />
         </div>
     );
 };

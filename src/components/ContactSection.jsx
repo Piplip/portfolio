@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {motion} from 'framer-motion';
 import {gsap} from 'gsap';
 import '../styles/contact.scss';
@@ -8,6 +8,7 @@ import emailjs from '@emailjs/browser';
 import {faEnvelope, faMapMarkerAlt, faPhone} from '@fortawesome/free-solid-svg-icons';
 import {faGithub, faLinkedinIn} from '@fortawesome/free-brands-svg-icons';
 import {faX} from "@fortawesome/free-solid-svg-icons/faX";
+import ContactForm from './ContactForm';
 
 const ContactSection = () => {
     const infoRef = useRef(null);
@@ -78,14 +79,6 @@ const ContactSection = () => {
         <div className={'contact-wrapper'}>
             <div className="contact-container" ref={sectionRef}>
                 <div className="contact-header">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        Get In Touch
-                    </motion.h2>
-
                     <motion.p
                         className="section-description"
                         initial={{ opacity: 0, y: 20 }}
@@ -98,56 +91,59 @@ const ContactSection = () => {
 
                 <div className="contact-content horizontal">
                     <motion.div
-                        className="contact-info"
+                        className="contact-info-container"
                         ref={infoRef}
                         variants={containerVariants}
                         initial="hidden"
                         animate="visible"
                     >
-                        <motion.div className="contact-info-item" variants={itemVariants}>
-                            <div className="icon-wrapper">
-                                <FontAwesomeIcon icon={faEnvelope} />
-                            </div>
-                            <div className="info-content">
-                                <h3>Email</h3>
-                                <p><a href="mailto:hello@yourportfolio.com">dnguyenkhanh457@gmail.com</a></p>
-                            </div>
-                        </motion.div>
+                        <div className="contact-info">
+                            <motion.div className="contact-info-item" variants={itemVariants}>
+                                <div className="icon-wrapper">
+                                    <FontAwesomeIcon icon={faEnvelope} />
+                                </div>
+                                <div className="info-content">
+                                    <h3>Email</h3>
+                                    <p><a href="mailto:hello@yourportfolio.com">dnguyenkhanh457@gmail.com</a></p>
+                                </div>
+                            </motion.div>
 
-                        <motion.div className="contact-info-item" variants={itemVariants}>
-                            <div className="icon-wrapper">
-                                <FontAwesomeIcon icon={faPhone} />
-                            </div>
-                            <div className="info-content">
-                                <h3>Phone</h3>
-                                <p><a href="tel:+84852560070">+84 85 256 0070</a></p>
-                            </div>
-                        </motion.div>
+                            <motion.div className="contact-info-item" variants={itemVariants}>
+                                <div className="icon-wrapper">
+                                    <FontAwesomeIcon icon={faPhone} />
+                                </div>
+                                <div className="info-content">
+                                    <h3>Phone</h3>
+                                    <p><a href="tel:+84852560070">+84 85 256 0070</a></p>
+                                </div>
+                            </motion.div>
 
-                        <motion.div className="contact-info-item" variants={itemVariants}>
-                            <div className="icon-wrapper">
-                                <FontAwesomeIcon icon={faMapMarkerAlt} />
-                            </div>
-                            <div className="info-content">
-                                <h3>Location</h3>
-                                <p>Bac Lieu, Vietnam</p>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                    <motion.div className="contact-social" variants={itemVariants}>
-                        <h3>Connect</h3>
-                        <div className="social-icons">
-                            <a href="https://github.com/Piplip" className="social-icon" aria-label="GitHub" target={'_blank'}>
-                                <FontAwesomeIcon icon={faGithub} />
-                            </a>
-                            <a href="https://www.linkedin.com/in/khanh-du-nguyen-1b1106282/" className="social-icon" aria-label="LinkedIn" target={'_blank'}>
-                                <FontAwesomeIcon icon={faLinkedinIn} />
-                            </a>
-                            <a href="https://x.com/NishaYua64898" className="social-icon" aria-label="Twitter" target={'_blank'}>
-                                <FontAwesomeIcon icon={faX} />
-                            </a>
+                            <motion.div className="contact-info-item" variants={itemVariants}>
+                                <div className="icon-wrapper">
+                                    <FontAwesomeIcon icon={faMapMarkerAlt} />
+                                </div>
+                                <div className="info-content">
+                                    <h3>Location</h3>
+                                    <p>Bac Lieu, Vietnam</p>
+                                </div>
+                            </motion.div>
                         </div>
+                        <motion.div className="contact-social" variants={itemVariants}>
+                            <h3>Connect</h3>
+                            <div className="social-icons">
+                                <a href="https://github.com/Piplip" className="social-icon" aria-label="GitHub" target={'_blank'}>
+                                    <FontAwesomeIcon icon={faGithub} />
+                                </a>
+                                <a href="https://www.linkedin.com/in/khanh-du-nguyen-1b1106282/" className="social-icon" aria-label="LinkedIn" target={'_blank'}>
+                                    <FontAwesomeIcon icon={faLinkedinIn} />
+                                </a>
+                                <a href="https://x.com/NishaYua64898" className="social-icon" aria-label="Twitter" target={'_blank'}>
+                                    <FontAwesomeIcon icon={faX} />
+                                </a>
+                            </div>
+                        </motion.div>
                     </motion.div>
+                    <ContactForm />
                 </div>
             </div>
         </div>

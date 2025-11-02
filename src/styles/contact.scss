@@ -22,101 +22,142 @@ $shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 0 1.5rem;
+  padding: 4rem 1.5rem;
   width: 100%;
-  background: $off-white;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba($primary-red, 0.1);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    animation: blob1 15s infinite alternate;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: rgba($secondary-red, 0.1);
+    border-radius: 30% 70% 50% 50% / 60% 40% 60% 40%;
+    animation: blob2 20s infinite alternate;
+    z-index: 0;
+  }
+}
+
+@keyframes blob1 {
+  0% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(30px, -50px) scale(1.1); }
+  60% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes blob2 {
+  0% { transform: translate(0, 0) scale(1); }
+  40% { transform: translate(-40px, 60px) scale(1.2); }
+  80% { transform: translate(50px, -30px) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
 .contact-container {
   width: 100%;
-  max-width: 900px;
-  background: none;
-  box-shadow: none;
+  max-width: 1200px;
+  background: white;
+  box-shadow: $shadow-lg;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 4rem;
+  padding: 5rem;
+  border-radius: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .contact-header {
   margin-bottom: 0;
-  h2 {
-    font-size: 2.6rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-align: left;
-    position: relative;
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -0.5rem;
-      height: 0.22rem;
-      width: 5rem;
-      background: linear-gradient(90deg, $primary-red, transparent);
-      border-radius: 2px;
-    }
-  }
+  text-align: center;
+
   .section-description {
-    font-size: 2.5rem; // Adjust for comfort
-    color: $dark-gray;
+    font-size: 2.25rem;
+    color: $accent-gray;
     line-height: 1.7;
-    max-width: 650px;
+    max-width: 700px;
+    margin: 0 auto;
   }
 }
 
 .contact-content {
-  display: flex;
-  gap: 2.5rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 5rem;
   width: 100%;
   align-items: flex-start;
 
   @media (max-width: 992px) {
-    flex-direction: column;
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 4rem;
   }
+}
+
+.contact-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  background: $off-white;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: $shadow-sm;
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 1.33rem;
-  min-width: 250px;
-  max-width: 420px;
-  flex-shrink: 0;
+  gap: 2.5rem;
 }
 
 .contact-info-item {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  align-items: center;
+  gap: 1.8rem;
   .icon-wrapper {
-    width: 3rem;
-    height: 3rem;
-    background: rgba($primary-red, 0.12);
+    width: 5rem;
+    height: 5rem;
+    background: $primary-red;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 
     svg {
-      color: $primary-red;
-      font-size: 1.6rem;
+      color: white;
+      font-size: 2.2rem;
     }
   }
   .info-content {
     h3 {
       font-size: 2rem;
-      font-weight: 600;
-      margin: 0 0 0.15rem;
+      font-weight: 700;
+      margin: 0 0 0.4rem;
       color: $dark-gray;
     }
     p {
-      font-size: 1.75rem;
+      font-size: 1.6rem;
       margin: 0;
       a {
-        color: $dark-gray;
+        color: $accent-gray;
         transition: color 0.3s;
+        text-decoration: none;
         &:hover {
           color: $primary-red;
         }
@@ -126,36 +167,100 @@ $shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 
 }
 
 .contact-social {
-  margin-left: 5rem;
   h3 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 0.7rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1.8rem;
     color: $dark-gray;
   }
   .social-icons {
+    justify-self: center;
     display: flex;
-    gap: 1rem;
+    gap: 1.8rem;
     .social-icon {
-      width: 4.4rem;
-      height: 4.4rem;
+      width: 5.5rem;
+      height: 5.5rem;
       background: $light-gray;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: $dark-gray;
-      font-size: 2.5rem;
-      transition: all 0.25s;
-      opacity: 1;
-      transform: scale(1);
+      font-size: 2.8rem;
+      transition: all 0.3s ease;
 
       &:hover {
         background: $primary-red;
         color: $pure-white;
-        transform: translateY(-2px) scale(1.08);
-        box-shadow: 0 2px 8px rgba($primary-red, 0.18);
+        transform: translateY(-7px) rotate(5deg);
+        box-shadow: $shadow-md;
       }
     }
+  }
+}
+
+.contact-form {
+  background: $pure-white;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: $shadow-sm;
+
+  .form-group {
+    margin-bottom: 2.5rem;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 1.6rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1.6rem;
+    font-family: $font-body;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: $off-white;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-red;
+      box-shadow: 0 0 0 4px rgba($primary-red, 0.15);
+    }
+  }
+
+  textarea {
+    min-height: 180px;
+    resize: vertical;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 1.6rem;
+    font-size: 1.8rem;
+    background-color: $primary-red;
+    color: white;
+    border-radius: 10px;
+    &:hover {
+      background-color: darken($primary-red, 10%);
+    }
+  }
+
+  .form-success,
+  .form-error {
+    margin-top: 2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .form-success {
+    color: $success-green;
+    background-color: lighten($success-green, 40%);
+  }
+
+  .form-error {
+    color: $error-red;
+    background-color: lighten($error-red, 30%);
   }
 }
