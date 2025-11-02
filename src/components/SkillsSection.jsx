@@ -2,14 +2,33 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import {
     Box,
-    Typography,
-    Chip,
-    useTheme
 } from '@mui/material';
 import Particles from './shared/Particles';
 import './shared/Particles.css';
-import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaGit, FaJava } from 'react-icons/fa';
+import {
+    FaBrain,
+    FaCss3Alt,
+    FaGit,
+    FaHtml5,
+    FaJava,
+    FaJs,
+    FaProjectDiagram,
+    FaReact,
+    FaServer,
+    FaShieldAlt
+} from 'react-icons/fa';
+import {
+    SiFirebase,
+    SiGooglecloud,
+    SiGrafana,
+    SiMui ,
+    SiMysql,
+    SiPrometheus,
+    SiSpring,
+    SiVite
+} from 'react-icons/si';
 import '../styles/skills.scss';
+import SkillCard from './SkillCard';
 
 const SkillsSection = () => {
     const skills = [
@@ -20,8 +39,8 @@ const SkillsSection = () => {
                 { name: 'CSS', icon: <FaCss3Alt /> },
                 { name: 'JavaScript', icon: <FaJs /> },
                 { name: 'React', icon: <FaReact /> },
-                { name: 'Material UI' },
-                { name: 'Vite' },
+                { name: 'Material UI', icon: <SiMui  /> },
+                { name: 'Vite', icon: <SiVite /> },
                 { name: 'Responsive Design' },
                 { name: 'SEO' },
             ]
@@ -29,10 +48,10 @@ const SkillsSection = () => {
         {
             category: 'Backend',
             items: [
-                { name: 'Spring Boot' },
+                { name: 'Spring Boot', icon: <SiSpring /> },
                 { name: 'Java', icon: <FaJava /> },
-                { name: 'MySQL' },
-                { name: 'Firebase' },
+                { name: 'MySQL', icon: <SiMysql /> },
+                { name: 'Firebase', icon: <SiFirebase /> },
                 { name: 'jOOQ' },
                 { name: 'Maven' },
             ]
@@ -41,16 +60,18 @@ const SkillsSection = () => {
             category: 'Tools',
             items: [
                 { name: 'Git', icon: <FaGit /> },
-                { name: 'Google Cloud' }
+                { name: 'Google Cloud', icon: <SiGooglecloud /> },
+                { name: 'Prometheus', icon: <SiPrometheus /> },
+                { name: 'Grafana', icon: <SiGrafana /> },
             ]
         },
         {
             category: 'Other',
             items: [
-                { name: 'Project Management' },
-                { name: 'Microservices' },
-                { name: 'Web Security' },
-                { name: 'LLM Utilization' },
+                { name: 'Project Management', icon: <FaProjectDiagram /> },
+                { name: 'Microservices', icon: <FaServer /> },
+                { name: 'Web Security', icon: <FaShieldAlt /> },
+                { name: 'LLM Utilization', icon: <FaBrain /> },
             ]
         }
     ];
@@ -97,29 +118,11 @@ const SkillsSection = () => {
 
             <Box className="skills-content">
                 {skills.map((skillGroup, index) => (
-                    <Box
+                    <SkillCard
                         key={index}
-                        component={motion.div}
+                        skillGroup={skillGroup}
                         variants={itemVariants}
-                        className={`skill-group ${skillGroup.category.toLowerCase()}`}>
-                        <Typography
-                            className="skill-category">
-                            {skillGroup.category}
-                        </Typography>
-                        <Box className="skill-chips">
-                            {skillGroup.items.map((skill, i) => (
-                                <Chip
-                                    key={i}
-                                    label={
-                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                            {skill.icon && skill.icon}
-                                            {skill.name}
-                                        </Box>
-                                    }
-                                />
-                            ))}
-                        </Box>
-                    </Box>
+                    />
                 ))}
             </Box>
         </Box>
